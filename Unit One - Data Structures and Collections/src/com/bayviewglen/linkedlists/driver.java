@@ -6,6 +6,7 @@ public class driver {
 		LinkedList test = new LinkedList();
 		display(test.toArray());
 		test.add(2);
+		test.add(2);
 
 		test.add(1);
 		test.add(0);
