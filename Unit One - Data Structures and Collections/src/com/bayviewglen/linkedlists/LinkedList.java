@@ -96,7 +96,7 @@ public class LinkedList {
 
 	// Removes the element at the specified position in this list.
 	public int remove(int index) {
-		if (index > numNodes || numNodes == 0 || index < 0) {
+		if (index >= numNodes || numNodes == 0 || index < 0) {
 			throw new IndexOutOfBoundsException("Index: " + index + ", Size :" + numNodes);
 		}
 		int data = 0;
@@ -141,24 +141,18 @@ public class LinkedList {
 	// Replaces the element at the specified position in this list with the
 	// specified element
 	public int set(int index, int data) {
-		if (index > numNodes || numNodes == 0 || index < 0) {
+		if (index >= numNodes || numNodes == 0 || index < 0) {
 			throw new IndexOutOfBoundsException("Index: " + index + ", Size :" + numNodes);
 		}
 		IntNode posNode;
 		int retData;
-		if (numNodes == index) {
-			posNode = tail;
-			retData = posNode.getData();
-			posNode.setData(data);
-		} else {
-			posNode = head;
-			for (int i = 0; i < index; i++) {
-				posNode = posNode.getLink();
-			}
-			retData = posNode.getData();
-			posNode.setData(data);
-
+		posNode = head;
+		for (int i = 0; i < index; i++) {
+			posNode = posNode.getLink();
 		}
+		retData = posNode.getData();
+		posNode.setData(data);
+
 		return retData;
 	}
 

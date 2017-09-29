@@ -5,16 +5,23 @@ public class driver {
 	public static void main(String[] args) {
 		LinkedList test = new LinkedList();
 		display(test.toArray());
-		test.add(2);
-		test.add(2);
+		test.add(0, 3);
+		display(test.toArray());
 
-		test.add(1);
-		test.add(0);
-		test.add(1);
-		test.add(0);
+		test.add(2);
+		display(test.toArray());
+
+		System.out.println("r" + test.size());
+
+		test.add(22);
+		test.add(2);
+		test.add(2);
+		test.add(22);
+		test.add(2);
 
 		display(test.toArray());
-		System.out.println("RLO" + test.removeLastOccurrence(0));
+		System.out.println("r" + test.contains(32));
+
 		display(test.toArray());
 
 	}
