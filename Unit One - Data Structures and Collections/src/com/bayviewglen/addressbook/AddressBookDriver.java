@@ -9,7 +9,36 @@ public class AddressBookDriver {
 	public static void main(String[] args) {
 
 		AddressBook addressBook = new AddressBook();
-		Scanner keyboard = new Scanner(System.in);
+		addressBook.addContact("cricket", "charles", "1");
+		addressBook.addContact("bird", "bob", "1");
+		addressBook.addContact("burr", "bob", "1");
+		addressBook.addContact("at", "alex", "1");
+		addressBook.addContact("duncan", "david", "1");
+		addressBook.addContact("david", "yoolo", "1");
+		addressBook.addContact("eler", "ernest", "1");
+
+		System.out.println("*******************************************************************************************************************************************************");
+		addressBook.displayAllContacts();
+		System.out.println("*******************************************************************************************************************************************************");
+
+		addressBook.removeContact("cricket", "charles");
+
+		System.out.println("*******************************************************************************************************************************************************");
+		addressBook.displayAllContacts();
+		System.out.println("*******************************************************************************************************************************************************");
+		addressBook.addContact("zeus", "bolt", "100");
+
+		System.out.println("*******************************************************************************************************************************************************");
+		addressBook.displayAllContacts();
+		System.out.println("*******************************************************************************************************************************************************");
+		addressBook.displaySpecificContact("zeus", "bolt");
+
+		System.out.println("*******************************************************************************************************************************************************");
+		addressBook.displayAllContacts();
+		System.out.println("*******************************************************************************************************************************************************");
+
+
+		/*Scanner keyboard = new Scanner(System.in);
 		boolean loop = true;
 		while (loop) {
 			System.out.println("Type 1 to add, 2 to delete, 3 to search, 4 to show address book, 0 to quit");
@@ -38,12 +67,14 @@ public class AddressBookDriver {
 				addressBook.displayAllContacts();
 			} else if (choice.equals("0")) {
 				loop = false;
-				addressBook.exit();
+				//addressBook.exit();
 
 			} else {
 				System.out.println("Please enter a valid choice...");
 			}
 		}
+		
+		*/
 
 	}
 }

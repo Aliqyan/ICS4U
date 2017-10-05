@@ -16,23 +16,30 @@ public class BinarySearchTree {
 
 	public void add(TreeNode current, Contact x) {
 		System.out.println(current.getContact());
-
 		if (current.getRight() != null && current.getContact().compareTo(x) < 0) {
+			System.out.println("-------> a: " + current.getContact() + " --> " + x);
 			add(current.getRight(), x);
 		} else if (current.getLeft() != null && current.getContact().compareTo(x) >= 0) {
+			System.out.println("-------> b: " + current.getContact() + " --> " + x);
 			add(current.getLeft(), x);
 		} else if (current.getRight() == null && current.getContact().compareTo(x) < 0) {
+			System.out.println("-------> c: " + current.getContact() + " --> " + x);
 			current.setRight(new TreeNode(x));
 		} else if (current.getLeft() == null && current.getContact().compareTo(x) >= 0) {
+			System.out.println("-------> d: " + current.getContact() + " --> " + x);
 			current.setLeft(new TreeNode(x));
 		}
 	}
 
 	public void add(Contact x) {
+		System.out.println("a");
 		if (root == null) {
 			TreeNode temp = new TreeNode(x);
 			root = temp;
+			System.out.println("b");
 		} else {
+			System.out.println("c");
+
 			add(root, x);
 		}
 	}
@@ -78,7 +85,7 @@ public class BinarySearchTree {
 	}
 
 	private void evaluate(TreeNode current) {
-		System.out.print(current.getContact() + ", ");
+		System.out.println(current.getContact() + ", ");
 	}
 
 	public TreeNode findSmallest(TreeNode root) {
@@ -110,6 +117,7 @@ public class BinarySearchTree {
 	}
 
 	private TreeNode searchParent(TreeNode root, Contact target) {
+		System.out.println(root.getContact());
 		TreeNode leftNode = root.getLeft();
 		TreeNode rightNode = root.getRight();
 		if (leftNode == null && rightNode == null) {
@@ -144,21 +152,25 @@ public class BinarySearchTree {
 		}
 		
 		if (deleteNode.getLeft() == null && deleteNode.getRight() == null) {
+			System.out.println("Case 1");
 			if (parent.getContact().compareTo(target) > 0)
 				parent.setLeft(null);
 			else
 				parent.setRight(null);
 		} else if (deleteNode.getLeft() == null) {
+			System.out.println("Case 2");
 			if (right)
 				parent.setRight(deleteNode.getLeft());
 			else
 				parent.setLeft(deleteNode.getLeft());
 		} else if (deleteNode.getRight() == null) {
+			System.out.println("Case 3");
 			if (right)
 				parent.setRight(deleteNode.getRight());
 			else
 				parent.setLeft(deleteNode.getRight());
 		} else {
+			System.out.println("Case 4");
 			TreeNode largest = findLargest(deleteNode.getLeft());
 			Contact temp = largest.getContact();
 			delete(deleteNode, temp);

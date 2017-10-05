@@ -12,72 +12,61 @@ import com.bayviewglen.trees.BinarySearchTree;
 
 public class AddressBook {
 	private BinarySearchTree bst;
-	//private int numContacts;
+	int numContacts = 0;
 	public AddressBook() {
 		bst = new BinarySearchTree();
-		read();
-
-
+		//read();
 	}
 	
 	
 	public void addContact(String lastName, String firstName, String phone) {
+		System.out.println("Wdw");
 		bst.add(new Contact(lastName, firstName, phone));
 	}
 	
 	public void removeContact(String lastName, String firstName) {
 		//TODO
-		if(numContacts == 0) {
-			System.out.println("There are no contacts in this book");
-			return;
-		}
-		int index = searchContact(lastName, firstName);
-		if(index == -1) {
+		
+		boolean works = bst.delete(bst.getRoot(), new Contact(lastName, firstName));
+		System.out.println(works);
+		if(!works) {
 			System.out.println("There is no contacts with than name in this book");
 			return;
-		}
-		for(int i = index; i<numContacts;i++) {
-			contacts[i] = contacts[i+1];
-		}
+		}		
 		numContacts--;
 	}
 	
-	public int searchContact(String lastName, String firstName) {
-		for(int i = 0; i < numContacts ;i++) {
-			if(contacts[i].equals(lastName, firstName) ) {
-				return i;
-			}
-		}
-		return -1;
+	public Contact searchContact(String lastName, String firstName) {
+		return bst.search(bst.getRoot(), new Contact(lastName, firstName)).getContact();
 	}
 	
 	public void displaySpecificContact(String lastName, String firstName) {
-		int index = searchContact(lastName, firstName);
-		if(index == -1) {
+		Contact contact = searchContact(lastName, firstName);
+		if(contact == null) {
 			System.out.println("This contact does not exist!");
+		}else{
+			System.out.println(contact);
 		}
-		System.out.println(contacts[index]);
 		
 	}
 	
 	public void displayAllContacts() {
-		if(numContacts == 0) {
-			System.out.println("No contacts in the contact book");
-		}
+		System.out.println("PreO");
+		bst.preOrderTaversal(bst.getRoot());
 		System.out.println();
+		System.out.println("InO");
+		bst.inorderTaversal(bst.getRoot());
+		System.out.println();
+		System.out.println("PostO");
+		bst.postOrderTaversal(bst.getRoot());
 
-		for(int i = 0; i < numContacts; i++) {
-			System.out.println(contacts[i]);
-		}
-		
 	}
 	
-	public void exit() {
+	/*public void exit() {
 		FileWriter fw;
 		try {
 			fw = new FileWriter(new File("data/contacts.dat"));
 			fw.write(numContacts + "\n");
-
 			for(int i= 0; i<numContacts; i++) {
 				fw.write(contacts[i].getLname() + "_" + contacts[i].getFname() + "_" + contacts[i].getPhone() + "\n");
 			}			
@@ -90,7 +79,7 @@ public class AddressBook {
 		System.out.println("Thank you for using the Tapia Contact Holder!");
 		System.out.println("Cheerio!");
 
-	}
+	}*/
 	
 	public void read() {
 		try {
@@ -98,7 +87,8 @@ public class AddressBook {
 			numContacts = Integer.parseInt(input.nextLine());
 			for(int i= 0; i<numContacts; i++) {
 				String line = input.nextLine(); 
-				contacts[i] = new Contact(line.split("_")[0], line.split("_")[1], line.split("_")[2]);
+				//bst.add();
+				//contacts[i] = new Contact(line.split("_")[0], line.split("_")[1], line.split("_")[2]);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

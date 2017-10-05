@@ -15,6 +15,13 @@ public class Contact implements Comparable<Contact>{
 		this.phone = phone;
 	}
 	
+	public Contact(String lname, String fname) {
+		super();
+		this.lname = lname;
+		this.fname = fname;
+		this.phone = phone;
+	}
+	
 
 	public String getLname() {
 		return lname;
@@ -33,13 +40,9 @@ public class Contact implements Comparable<Contact>{
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-	public boolean equals(String lname, String fname) {
-		return(this.lname.equals(lname) && this.fname.equals(fname));
-	}
-	
+	}	
 	public String toString() {
-		return lname + ", " + fname + "\n\t" + phone;
+		return lname + ", " + fname + ", " + phone;
 	}
 
 
@@ -50,6 +53,25 @@ public class Contact implements Comparable<Contact>{
 		}else {
 			return result1;
 		}
-		
+	}
+	
+	public boolean equals(String lname, String fname) {
+		return(this.lname.equals(lname) && this.fname.equals(fname));
+	}
+	
+	public boolean equals(Contact other) {
+		return(lname.equals(other.getLname()) && fname.equals(other.getFname()));
+	}
+	
+	public int compareTo(String lname, String fname) {
+		int result1 = (this.lname).compareToIgnoreCase(lname);
+		if(result1 == 0) {
+			int result2= (this.fname).compareToIgnoreCase(fname);
+			System.out.println("c" + result2);
+			return (this.fname).compareToIgnoreCase(fname);
+		}else {
+			System.out.println("c" + result1);
+			return result1;
+		}
 	}
 }
