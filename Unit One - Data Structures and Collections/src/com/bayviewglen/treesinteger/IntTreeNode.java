@@ -1,4 +1,4 @@
-package com.bayviewglen.trees;
+package com.bayviewglen.treesinteger;
 
 public class IntTreeNode {
 	private IntTreeNode left;

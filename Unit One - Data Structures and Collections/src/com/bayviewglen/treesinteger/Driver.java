@@ -1,6 +1,4 @@
-package com.bayviewglen.trees;
-
-import com.bayviewglen.treesinteger.BinarySearchTree;
+package com.bayviewglen.treesinteger;
 
 public class Driver {
 	static BinarySearchTree bst = new BinarySearchTree();
