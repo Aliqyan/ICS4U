@@ -45,7 +45,6 @@ public class Contact implements Comparable<Contact>{
 		return lname + ", " + fname + ", " + phone;
 	}
 
-
 	public int compareTo(Contact other) {
 		int result1 = (lname).compareToIgnoreCase(other.getLname());
 		if(result1 == 0) {
@@ -74,4 +73,6 @@ public class Contact implements Comparable<Contact>{
 			return result1;
 		}
 	}
+	
+
 }

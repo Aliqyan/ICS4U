@@ -51,11 +51,7 @@ public class TreeNode implements Comparable<TreeNode>{
 	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
-	/*
-	public String toString() {
-		return "" + contact;
-	}
-	*/
+	
 
 	@Override
 	public int compareTo(TreeNode other) {

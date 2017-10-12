@@ -1,4 +1,7 @@
 package com.bayviewglen.trees;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.bayviewglen.addressbook.Contact;
@@ -189,5 +192,22 @@ public class BinarySearchTree {
 	    result.add(curr.getContact()); 
 	    toArrayHelp(curr.getLeft(), result); 
 	    toArrayHelp(curr.getRight(), result); 
+	}
+
+	public void write(TreeNode curr, BufferedWriter bw)  {
+		if(!doesExists(curr)) {
+			return;
+		}
+		try {
+			bw.append(curr.getContact().toString() + "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (doesExists(curr.getLeft())) {
+			write(curr.getLeft(), bw);
+		}
+		if (doesExists(curr.getRight())) {
+			write(curr.getRight(), bw);
+		}
 	}
 }
