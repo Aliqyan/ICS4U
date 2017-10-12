@@ -15,62 +15,53 @@ public class BinarySearchTree {
 	}
 
 	public void add(TreeNode current, Contact x) {
-		System.out.println(current.getContact());
-		if (current.getRight() != null && current.getContact().compareTo(x) < 0) {
-			System.out.println("-------> a: " + current.getContact() + " --> " + x);
+		if (doesExists(current.getRight()) && current.getContact().compareTo(x) < 0) {
 			add(current.getRight(), x);
-		} else if (current.getLeft() != null && current.getContact().compareTo(x) >= 0) {
-			System.out.println("-------> b: " + current.getContact() + " --> " + x);
+		} else if (doesExists(current.getLeft()) && current.getContact().compareTo(x) >= 0) {
 			add(current.getLeft(), x);
-		} else if (current.getRight() == null && current.getContact().compareTo(x) < 0) {
-			System.out.println("-------> c: " + current.getContact() + " --> " + x);
+		} else if (!doesExists(current.getRight()) && current.getContact().compareTo(x) < 0) {
 			current.setRight(new TreeNode(x));
-		} else if (current.getLeft() == null && current.getContact().compareTo(x) >= 0) {
-			System.out.println("-------> d: " + current.getContact() + " --> " + x);
+		} else if (!doesExists(current.getLeft()) && current.getContact().compareTo(x) >= 0) {
 			current.setLeft(new TreeNode(x));
 		}
 	}
 
 	public void add(Contact x) {
-		System.out.println("a");
 		if (root == null) {
 			TreeNode temp = new TreeNode(x);
 			root = temp;
-			System.out.println("b");
 		} else {
-			System.out.println("c");
-
 			add(root, x);
 		}
 	}
 
 	public void inorderTaversal(TreeNode current) {
 
-		if (current.getLeft() != null)
+		if (doesExists(current.getLeft()))
 			inorderTaversal(current.getLeft());
 		evaluate(current);
 
-		if (current.getRight() != null)
+		if (doesExists(current.getRight()))
 			inorderTaversal(current.getRight());
 	}
 
 	public void preOrderTaversal(TreeNode current) {
 		evaluate(current);
 
-		if (current.getLeft() != null) {
+		if (doesExists(current.getLeft())) {
 			preOrderTaversal(current.getLeft());
 		}
-		if (current.getRight() != null) {
+		if (doesExists(current.getRight())) {
 			preOrderTaversal(current.getRight());
 		}
 
 	}
 
 	public void postOrderTaversal(TreeNode current) {
-		if (current.getLeft() != null)
+		if (doesExists(current.getLeft()))
 			postOrderTaversal(current.getLeft());
 
-		if (current.getRight() != null)
+		if (doesExists(current.getRight()))
 			postOrderTaversal(current.getRight());
 
 		evaluate(current);
@@ -89,14 +80,14 @@ public class BinarySearchTree {
 	}
 
 	public TreeNode findSmallest(TreeNode root) {
-		if (root.getLeft() == null) {
+		if (!doesExists(root.getLeft())) {
 			return root;
 		}
 		return findSmallest(root.getLeft());
 	}
 
 	public TreeNode findLargest(TreeNode root) {
-		if (root.getRight() == null) {
+		if (!doesExists(root.getRight())) {
 			return root;
 		}
 
@@ -104,7 +95,7 @@ public class BinarySearchTree {
 	}
 
 	public TreeNode search(TreeNode root, Contact target) {
-		if (root == null) {
+		if (!doesExists(root)) {
 			return null;
 		}
 		if (target.compareTo(root.getContact()) < 0) {
@@ -117,33 +108,41 @@ public class BinarySearchTree {
 	}
 
 	private TreeNode searchParent(TreeNode root, Contact target) {
-		System.out.println(root.getContact());
 		TreeNode leftNode = root.getLeft();
 		TreeNode rightNode = root.getRight();
-		if (leftNode == null && rightNode == null) {
+		if (!doesExists(leftNode) && !doesExists(rightNode)) {
 			return null;
-		} else if ((leftNode != null && leftNode.getContact().equals(target))
-				|| (rightNode != null && rightNode.getContact().equals(target))) {
+		}
+		if ((doesExists(leftNode) && leftNode.getContact().equals(target))
+				|| (doesExists(rightNode) && rightNode.getContact().equals(target))) {
 			return root;
 		} else if (target.compareTo(root.getContact()) < 0) {
-			return searchParent(leftNode, target);
+			if(doesExists(leftNode))
+				return searchParent(leftNode, target);
+			else return null;
 		} else {
-			return searchParent(rightNode, target);
+			if(doesExists(rightNode))
+				return searchParent(rightNode, target);
+			else return null;
 		}
+	}
+	
+	private boolean doesExists(TreeNode curr) {
+		return curr != null;
 	}
 
 	public boolean delete(TreeNode root, Contact target) {
 		TreeNode parent = searchParent(root, target);
 		TreeNode deleteNode;
 		boolean right = false;
-		if (parent == null) {
+		if (!doesExists(parent)) {
 			if (root.getContact().equals(target)) {
 				deleteNode = root;
 			} else {
 				return false;
 			}
 		} else {
-			if (parent.getContact().compareTo(target) > 0) {
+			if (doesExists(parent.getLeft()) && parent.getLeft().getContact().equals(target)) {
 				deleteNode = parent.getLeft();
 			} else {
 				right = true;
@@ -152,25 +151,21 @@ public class BinarySearchTree {
 		}
 		
 		if (deleteNode.getLeft() == null && deleteNode.getRight() == null) {
-			System.out.println("Case 1");
 			if (parent.getContact().compareTo(target) > 0)
 				parent.setLeft(null);
 			else
 				parent.setRight(null);
 		} else if (deleteNode.getLeft() == null) {
-			System.out.println("Case 2");
-			if (right)
-				parent.setRight(deleteNode.getLeft());
-			else
-				parent.setLeft(deleteNode.getLeft());
-		} else if (deleteNode.getRight() == null) {
-			System.out.println("Case 3");
 			if (right)
 				parent.setRight(deleteNode.getRight());
 			else
 				parent.setLeft(deleteNode.getRight());
+		} else if (deleteNode.getRight() == null) {
+			if (right)
+				parent.setRight(deleteNode.getLeft());
+			else
+				parent.setLeft(deleteNode.getLeft());
 		} else {
-			System.out.println("Case 4");
 			TreeNode largest = findLargest(deleteNode.getLeft());
 			Contact temp = largest.getContact();
 			delete(deleteNode, temp);

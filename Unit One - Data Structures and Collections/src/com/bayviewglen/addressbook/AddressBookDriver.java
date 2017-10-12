@@ -9,6 +9,7 @@ public class AddressBookDriver {
 	public static void main(String[] args) {
 
 		AddressBook addressBook = new AddressBook();
+
 		addressBook.addContact("cricket", "charles", "1");
 		addressBook.addContact("bird", "bob", "1");
 		addressBook.addContact("burr", "bob", "1");
@@ -16,7 +17,38 @@ public class AddressBookDriver {
 		addressBook.addContact("duncan", "david", "1");
 		addressBook.addContact("david", "yoolo", "1");
 		addressBook.addContact("eler", "ernest", "1");
+		
+		
+		System.out.println("*******************************************************************************************************************************************************");
+		addressBook.displayAllContacts();
+		System.out.println("*******************************************************************************************************************************************************");
+		System.out.print("1) ");
+		addressBook.removeContact("at" , "alex");
+		
+		System.out.println("*******************************************************************************************************************************************************");
+		addressBook.displayAllContacts();
+		System.out.println("*******************************************************************************************************************************************************");
+		System.out.print("2) ");
+		addressBook.removeContact("bird" , "bob");
+		
+		System.out.println("*******************************************************************************************************************************************************");
+		addressBook.displayAllContacts();
+		System.out.println("*******************************************************************************************************************************************************");
+		System.out.print("3) ");
+		addressBook.removeContact("eler" , "ernest");
+		System.out.println("*******************************************************************************************************************************************************");
+		addressBook.displayAllContacts();
+		System.out.println("*******************************************************************************************************************************************************");
+		addressBook.displaySpecificContact("cricket", "charles");
+		addressBook.displaySpecificContact("bird", "bob");
+		addressBook.displaySpecificContact("burr", "bob");
+		addressBook.displaySpecificContact("at", "alex");
+		addressBook.displaySpecificContact("duncan", "david");
+		addressBook.displaySpecificContact("david", "yoolo");
+		addressBook.displaySpecificContact("eler", "ernest");
+		
 
+/*
 		System.out.println("*******************************************************************************************************************************************************");
 		addressBook.displayAllContacts();
 		System.out.println("*******************************************************************************************************************************************************");
@@ -36,9 +68,10 @@ public class AddressBookDriver {
 		System.out.println("*******************************************************************************************************************************************************");
 		addressBook.displayAllContacts();
 		System.out.println("*******************************************************************************************************************************************************");
-
-
-		/*Scanner keyboard = new Scanner(System.in);
+*/
+		
+		/*
+		Scanner keyboard = new Scanner(System.in);
 		boolean loop = true;
 		while (loop) {
 			System.out.println("Type 1 to add, 2 to delete, 3 to search, 4 to show address book, 0 to quit");
@@ -73,8 +106,8 @@ public class AddressBookDriver {
 				System.out.println("Please enter a valid choice...");
 			}
 		}
-		
 		*/
+
 
 	}
 }
