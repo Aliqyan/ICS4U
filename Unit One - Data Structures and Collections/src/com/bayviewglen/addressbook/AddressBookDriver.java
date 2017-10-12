@@ -9,7 +9,7 @@ public class AddressBookDriver {
 	public static void main(String[] args) {
 
 		AddressBook addressBook = new AddressBook();
-
+/*
 		addressBook.addContact("cricket", "charles", "1");
 		addressBook.addContact("bird", "bob", "1");
 		addressBook.addContact("burr", "bob", "1");
@@ -18,7 +18,7 @@ public class AddressBookDriver {
 		addressBook.addContact("david", "yoolo", "1");
 		addressBook.addContact("eler", "ernest", "1");
 		
-		
+	
 		System.out.println("*******************************************************************************************************************************************************");
 		addressBook.displayAllContacts();
 		System.out.println("*******************************************************************************************************************************************************");
@@ -48,7 +48,7 @@ public class AddressBookDriver {
 		addressBook.displaySpecificContact("eler", "ernest");
 		
 
-/*
+
 		System.out.println("*******************************************************************************************************************************************************");
 		addressBook.displayAllContacts();
 		System.out.println("*******************************************************************************************************************************************************");
@@ -70,7 +70,7 @@ public class AddressBookDriver {
 		System.out.println("*******************************************************************************************************************************************************");
 */
 		
-		/*
+		
 		Scanner keyboard = new Scanner(System.in);
 		boolean loop = true;
 		while (loop) {
@@ -100,13 +100,13 @@ public class AddressBookDriver {
 				addressBook.displayAllContacts();
 			} else if (choice.equals("0")) {
 				loop = false;
-				//addressBook.exit();
+				addressBook.exit();
 
 			} else {
 				System.out.println("Please enter a valid choice...");
 			}
 		}
-		*/
+		
 
 
 	}

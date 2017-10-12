@@ -1,4 +1,6 @@
 package com.bayviewglen.trees;
+import java.util.ArrayList;
+
 import com.bayviewglen.addressbook.Contact;
 
 public class BinarySearchTree {
@@ -76,7 +78,7 @@ public class BinarySearchTree {
 	}
 
 	private void evaluate(TreeNode current) {
-		System.out.println(current.getContact() + ", ");
+		System.out.println(current.getContact());
 	}
 
 	public TreeNode findSmallest(TreeNode root) {
@@ -173,5 +175,19 @@ public class BinarySearchTree {
 		}
 		return true;
 	}
+	
+	public ArrayList<Contact> toArray() {
+	    ArrayList<Contact> result = new ArrayList<Contact>();
+	    toArrayHelp(root, result);
+	    return result;
+	}
 
+	private void toArrayHelp(TreeNode curr, ArrayList<Contact> result) {
+	    if (curr == null) {
+	        return;
+	    }
+	    result.add(curr.getContact()); 
+	    toArrayHelp(curr.getLeft(), result); 
+	    toArrayHelp(curr.getRight(), result); 
+	}
 }

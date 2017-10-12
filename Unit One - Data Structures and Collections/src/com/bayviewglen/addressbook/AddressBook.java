@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class AddressBook {
 
 	public AddressBook() {
 		bst = new BinarySearchTree();
-		//read();
+		read();
 	}
 
 	public void addContact(String lastName, String firstName, String phone) {
@@ -57,25 +58,26 @@ public class AddressBook {
 		if (bst.getRoot() == null) {
 			System.out.println("There are no contacts in your Address Book!");
 		} else {
-			System.out.println("PreO");
-			bst.preOrderTaversal(bst.getRoot());
-			System.out.println();
-			System.out.println("InO");
+			//System.out.println("PreO");
+			//bst.preOrderTaversal(bst.getRoot());
+			//System.out.println();
+			//System.out.println("InO");
 			bst.inorderTaversal(bst.getRoot());
-			System.out.println();
-			System.out.println("PostO");
-			bst.postOrderTaversal(bst.getRoot());
+			//System.out.println();
+			//System.out.println("PostO");
+			//bst.postOrderTaversal(bst.getRoot());
 		}
 
 	}
 
-	/*public void exit() {
+	public void exit() {
 		FileWriter fw;
 		try {
 			fw = new FileWriter(new File("data/contacts.dat"));
-			fw.write(numContacts + "\n");
-			for (int i = 0; i < numContacts; i++) {
-				fw.write(contacts[i].getLname() + "_" + contacts[i].getFname() + "_" + contacts[i].getPhone() + "\n");
+			ArrayList<Contact> allContacts = bst.toArray();
+			for (int i = 0; i < allContacts.size(); i++) {
+				Contact temp = allContacts.get(i); 
+				fw.write(temp.getLname() + "_" + temp.getFname() + "_" + temp.getPhone() + "\n");
 			}
 			fw.close();
 		} catch (IOException e) {
@@ -86,7 +88,7 @@ public class AddressBook {
 		System.out.println("Cheerio!");
 
 	}
-	*/
+
 	
 	public void read() {
 		try {
