@@ -21,21 +21,27 @@ public class AddressBook {
 	}
 
 	public void addContact(String lastName, String firstName, String phone) {
-		bst.add(new Contact(lastName, firstName, phone));
+		if (bst.getRoot() == null) {
+			// create a root tree node with a contact containing parameters from current
+			// method
+			bst.setRoot(new TreeNode(new Contact(lastName, firstName, phone)));
+		} else {
+			bst.add(bst.getRoot(), new Contact(lastName, firstName, phone));
+		}
 	}
 
 	public void removeContact(String lastName, String firstName) {
 		boolean works = bst.delete(bst.getRoot(), new Contact(lastName, firstName));
 		if (!works) {
-			System.out.println("There is no contacts with the name " + firstName + " " + lastName + " in this Address Book!");
+			System.out.println(
+					"There is no contacts with the name " + firstName + " " + lastName + " in this Address Book!");
 			return;
-		}else {
+		} else {
 			System.out.println("You have removed " + firstName + " " + lastName);
-
 		}
 	}
 
-	public Contact searchContact(String lastName, String firstName) {
+	private Contact searchContact(String lastName, String firstName) {
 		TreeNode temp = bst.search(bst.getRoot(), new Contact(lastName, firstName));
 		if (temp == null) {
 			return null;
@@ -48,18 +54,18 @@ public class AddressBook {
 		if (contact == null) {
 			System.out.println("This contact does not exist!");
 		} else {
-			System.out.println(contact);
+			System.out.println("The contact has been found: " + contact);
 		}
-
 	}
 
 	public void displayAllContacts() {
 		if (bst.getRoot() == null) {
 			System.out.println("There are no contacts in your Address Book!");
 		} else {
+			System.out.println("Below are all of your contacts");
+			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			bst.inorderTaversal(bst.getRoot());
 		}
-
 	}
 
 	public void exit() {
@@ -75,7 +81,6 @@ public class AddressBook {
 
 	}
 
-	
 	public void read() {
 		try {
 			Scanner input = new Scanner(new File("data/contacts.dat"));
@@ -84,7 +89,6 @@ public class AddressBook {
 				addContact(line.split(",")[0].trim(), line.split(",")[1].trim(), line.split(",")[2].trim());
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
