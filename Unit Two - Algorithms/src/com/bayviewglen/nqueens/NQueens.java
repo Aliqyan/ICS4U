@@ -20,9 +20,9 @@ public class NQueens {
 		System.out.println("----------------------------------------------------");
 		System.out.println();
 
-		if(works) {
+		if (works) {
 			displayBoard();
-		}else {
+		} else {
 			System.out.println("No valid Solution");
 		}
 
@@ -32,37 +32,37 @@ public class NQueens {
 		int count = 0;
 		int a = 0;
 		boolean overRide = false;
-		while (filled < n ) {
-			//System.out.println(count++ + ", " + filled);
-			
+		while (filled < n) {
+			// System.out.println(count++ + ", " + filled);
+
 			int x;
-			if(overRide) {
+			if (overRide) {
 				x = a;
 				overRide = false;
-			}else {
+			} else {
 				x = 0;
 			}
-			
-			//get point which is has no conflict
+
+			// get point which is has no conflict
 			Point curr = new Point(x, filled);
 			while (conflict(curr) && x <= n) {
 				curr = new Point(++x, filled);
 			}
-			
+
 			// no soln possible
 			if (filled == 0 && x >= n) {
 				return false;
 			}
 			// Back Track
-			else if(x >= n) {
+			else if (x >= n) {
 				filled--;
-				a = (int) points.pop().getX()+1;
+				a = (int) points.pop().getX() + 1;
 				overRide = true;
 			}
 			// Add point to stack
 			else {
 				points.push(curr);
-				filled ++;
+				filled++;
 			}
 		}
 		return true;
@@ -86,7 +86,7 @@ public class NQueens {
 		return false;
 	}
 
-	//for debugging only
+	// for debugging only
 	public static void display() {
 		Stack<Point> temp = new Stack<Point>();
 		temp.addAll(points);
@@ -94,23 +94,22 @@ public class NQueens {
 			System.out.println("---> " + temp.peek().getX() + ", " + temp.pop().getY());
 		}
 	}
-	
+
 	public static void displayBoard() {
 		Stack<Point> temp = new Stack<Point>();
 		temp.addAll(points);
-		for(int i = n; i > 0; i--) {
-			//Assuming num queens is equal to ch
+		for (int i = n; i > 0; i--) {
+			// Assuming num queens is equal to ch
 			Point curr = temp.pop();
-			for(int j = 0; j< n; j++) {
-				if(j == curr.getX()) {
+			for (int j = 0; j < n; j++) {
+				if (j == curr.getX()) {
 					System.out.print("Q ");
-				}else {
+				} else {
 					System.out.print("- ");
 				}
 			}
 			System.out.println();
 		}
 	}
-
 
 }
