@@ -15,16 +15,19 @@ public class NQueens {
 		System.out.print("How many queens do you want: ");
 		n = keyboard.nextInt();
 		filled = 0;
-		boolean works = addQueens();
+		
 		System.out.println("----------------------------------------------------");
 		System.out.println("----------------------------------------------------");
 		System.out.println();
-
+		
+		long start = System.currentTimeMillis();
+		boolean works = addQueens();
 		if (works) {
 			displayBoard();
 		} else {
 			System.out.println("No valid Solution");
 		}
+		System.out.printf("This took: %.4f" ,(System.currentTimeMillis() - start)/1000.0);
 
 	}
 
