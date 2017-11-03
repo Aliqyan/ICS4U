@@ -38,6 +38,7 @@ public class Quiz {
 			
 			//check which division option works best
 			for(int j = 0; j<3; j++) {
+				//make sure there is no infinite loop by dividing by 1
 				if(options[j] > 1 && i%options[j] == 0 && (stepsTaken[i/options[j]] < minSteps)) {
 					minSteps = stepsTaken[i/options[j]]; 
 					lastStep = i/options[j];
