@@ -1,8 +1,13 @@
 package com.bayviewglen.dpassignment;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+/*This is the Rossos Flair version
+ * DO NOT MARK
+ * NO DP IN HERE
+ * 
+ * */
 
 public class KingKnight {
 	// START END POINT : What's the best solution
