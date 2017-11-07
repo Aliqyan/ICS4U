@@ -2,8 +2,13 @@ package com.bayviewglen.dpassignment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
+
+/*To be Marked
+ * DP ASSIGNMENT: Contiguous Sequence
+ * Date: November 7th 2017
+ * By: Aliqyan Tapia
+ * */
 
 public class ContiguousSequence {
 	public static void main(String[] args) {

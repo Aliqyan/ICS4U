@@ -4,6 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/*To be Marked
+ * DP ASSIGNMENT: Bad Neighbour
+ * Date: November 7th 2017
+ * By: Aliqyan Tapia
+ * */
+
 public class BadNeighbour {
 
 	public static void main(String[] args) {

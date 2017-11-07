@@ -4,6 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/*To be Marked
+ * DP ASSIGNMENT: Zig Zag
+ * Date: November 7th 2017
+ * By: Aliqyan Tapia
+ * */
+
 public class ZigZag {
 
 	public static void main(String[] args) {
@@ -33,8 +39,7 @@ public class ZigZag {
 
 	public static void solve(int[] seq) {
 		if (seq.length >= 2) {
-			// tracks count for each subsequence from 0 to index i.e count [1] holds the max
-			// zig zag from [0, 1] of seq
+	
 			int[] count = new int[seq.length];
 			boolean isSame = seq[1] - seq[0] == 0;
 			boolean isUp = (seq[1] - seq[0] > 0);
