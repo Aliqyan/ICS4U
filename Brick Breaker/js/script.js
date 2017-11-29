@@ -19,6 +19,7 @@ var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 var bricks = [];
+var specials = [];
 var score = 0;
 var lives = 3;
 document.addEventListener("mousemove", mouseMoveHandler, false);
@@ -30,7 +31,8 @@ for (c = 0; c < brickColumnCount; c++) {
         bricks[c][r] = {
             x: 0,
             y: 0,
-            display: true
+            display: true,
+            special: !(Math.floor(Math.random()*4))
         };
     }
 }
@@ -66,6 +68,11 @@ function collisionDetection() {
             	dy = -dy;
             	score++;
                 b.display = false;
+                if(b.special){
+                    console.log("Specialness activated");
+                    var special = {x: b.x + brickWidth/2, y: b.y};
+                    specials.push(special);
+                }
                 if(score === brickColumnCount * brickRowCount){
 		            alert("You Win!!!");
 		            document.location.reload();
@@ -117,19 +124,55 @@ function drawScore(){
 }
 
 function drawLives() {
-    ctx.font = "16px Arial";
+    /*ctx.font = "16px Arial";
     ctx.fillStyle = "#0095DD";
     ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+    */
+
+    var heart = new Image(100, 200);
+    heart.src = 'images/heart.png';
+    //heart.onload = function() {
+    for(i = 0; i< lives; i++){
+        ctx.drawImage(heart, canvas.width-80  + i * 25 , 2.5, 25, 25);
+    }
+             /*   ctx.beginPath();
+            //ctx.rect(canvas.width - 80 , 2.5, (lives-3)*25, 25);
+            ctx.fillStyle = "#eee";
+            ctx.fill();
+            ctx.closePath();
+            */
+    //}
+    
+
+
+  
+}
+
+function drawSpecial(){
+    var bomb = new Image(100, 200);
+    bomb.src = 'images/rocket.png';
+    for(i = 0; i< specials.length; i++){
+        specials[i].y += 5;
+        ctx.drawImage(bomb, specials[i].x, specials[i].y, 25, 25);
+    }
+            ctx.beginPath();
+            //ctx.rect(canvas.width - 80 , 2.5, (lives-3)*25, 25);
+            ctx.fillStyle = "#eee";
+            ctx.fill();
+            ctx.closePath();
+    //}
 }
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBall();
     drawLives();
+    drawBall();
     drawPaddle();
     collisionDetection();
     drawScore();
     drawBricks();
+    drawSpecial();
+
     //update ball
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
         dx = -dx;
@@ -141,6 +184,9 @@ function draw() {
             dy = -dy;
         } else {
         	lives--;
+
+
+
         	if(!lives){
 	        	alert("You LOSE!!!");
 	            document.location.reload();
