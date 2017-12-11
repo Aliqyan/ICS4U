@@ -1,0 +1,33 @@
+body {
+    background-color: #6e8898;
+    color: #6db13c;
+}
+h1{
+
+}
+
+p {
+	font-family: cursive;
+}
+
+p img{
+	width: 25%;
+}
+
+.class1 {
+	color:red;
+}
+
+.class2 {
+	border: 1px blue dashed;
+	border-radius: 15px;
+}
+
+#p1{
+	border-radius: 10px;
+}
+#myCanvas{
+	background-color: #2e5266;
+	display: block;
+	margin: auto;
+}
