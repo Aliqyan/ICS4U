@@ -1,33 +1,52 @@
 body {
     background-color: #6e8898;
-    color: #6db13c;
-}
-h1{
+    color: #000;
+    height: 100%;
+    /*margin: 0;*/
 
 }
 
-p {
-	font-family: cursive;
-}
 
-p img{
-	width: 25%;
-}
-
-.class1 {
-	color:red;
-}
-
-.class2 {
-	border: 1px blue dashed;
-	border-radius: 15px;
-}
-
-#p1{
-	border-radius: 10px;
-}
 #myCanvas{
 	background-color: #2e5266;
 	display: block;
 	margin: auto;
 }
+
+#first{
+	opacity: 0.3;
+    background-image: url("../images/background.png");
+
+    /* Full height */
+    height: 100vh;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+h1{
+	/*text-family: ;*/	
+	margin-top: 40px;
+	margin-bottom: 0px;
+    text-align: center;
+	font-size: 80px;
+	color: #E8FAFF;
+}
+h2{
+	/*text-family: ;*/	
+	margin-top: 40px;
+	margin-bottom: 0px;
+	margin-left: 80px;
+	font-size: 30px;
+	color: #E8FAFF;
+}
+
+hr { 
+    display: block;
+    color: #2e5266;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+} 
