@@ -1,52 +1,58 @@
 body {
-    background-color: #6e8898;
-    color: #000;
+    background-color: #1c3144;//#6e8898;
+
+    color: #defffc;
     height: 100%;
+    font-family: "helvetica";
     /*margin: 0;*/
 
 }
 
 
 #myCanvas{
-	background-color: #2e5266;
+	background-color: #114b5f; //#2e5266;
 	display: block;
 	margin: auto;
 }
 
-#first{
-	opacity: 0.3;
-    background-image: url("../images/background.png");
 
-    /* Full height */
-    height: 100vh;
-
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 h1{
-	/*text-family: ;*/	
 	margin-top: 40px;
 	margin-bottom: 0px;
     text-align: center;
 	font-size: 80px;
-	color: #E8FAFF;
+    height: 100%;
 }
 h2{
-	/*text-family: ;*/	
 	margin-top: 40px;
-	margin-bottom: 0px;
+	margin-bottom: 15px;
 	margin-left: 80px;
-	font-size: 30px;
-	color: #E8FAFF;
+	margin-right:;
+	font-size: 35px;
+	text-decoration: underline;
+    text-decoration-color: #f7b32b;
+
 }
 
+p{
+	margin-top: 10px;
+	margin-bottom: 0px;
+	margin-left: 160px;
+	margin-right: 160px;
+
+	font-size: 25px;
+
+}
 hr { 
     display: block;
-    color: #2e5266;
+    color: #f7b32b;
     margin-left: auto;
     margin-right: auto;
     border-style: inset;
     border-width: 1px;
 } 
+
+#tab{
+	width:20px;
+}
+
