@@ -87,7 +87,7 @@ function drawTextConstrainted(text, size, posX, posY, color, limitX) {
         if(ctx.measureText(line).width >= limitX){
                 ctx.fillText(line, posX, posY);
                 line = "";
-                posY += 20;
+                posY += 25;
         }
 
         if(!(line === "" && newText[i] === " ")){
@@ -130,24 +130,6 @@ function drawLine(posX1, posY1, posX2, posY2, size){
     ctx.strokeStyle = "#d3d0cb";
     ctx.lineWidth = size;
     ctx.stroke();
-}
-
-function drawCurrent(){
-
-    /*
-    curr = commands[step];
-    for(var i = 0; i < curr.length; i++){
-        if(curr[i][0] == "t"){
-            drawText(curr[i][1], curr[i][2], curr[i][3], curr[i][4], curr[i][5]);
-        }else if(curr[i][0] == "tc"){
-            drawTextConstrainted(curr[i][1], curr[i][2], curr[i][3], curr[i][4], curr[i][5], curr[i][6]);
-        }else if(curr[i][0] == "dc"){
-            drawCircle(curr[i][1], curr[i][2], curr[i][3], curr[i][4]);
-        }else if(curr[i][0] == "dl"){
-            drawLine(curr[i][1], curr[i][2], curr[i][3], curr[i][4], curr[i][5]);
-        }
-    }
-    */
 }
 
 function showCommands(){
@@ -196,72 +178,24 @@ for(var i = 1; i < changes.length; i++){
     stack.push(curr)
 }
 //console.log(stack.length);
-
-/*
-var graph = {
-    a = {
-        ["dc", v.a.x, v.a.y, 20, "#000"], // A
-    ["t", "A", 30, v.a.x, v.a.y + 10, "#d3d0cb"],
-
-    },
-
-    b = {
-    ["dc", v.b.x, v.b.y, 20, "#000"], // B
-    ["t", "B", 30, v.b.x, v.b.y + 10, "#d3d0cb"],
-
-    },
-
-    c ={
-    ["dc", v.c.x, v.c.y, 20, "#000"], // C
-        ["t", "C", 30, v.c.x, v.c.y + 10, "#d3d0cb"],
-
-    },
-
-    d = {
-    ["dc", v.d.x, v.d.y, 20, "#000"], // D
-        ["t", "D", 30, v.d.x, v.d.y + 10, "#d3d0cb"],
-
-
-    },
-    e = {
-    ["dc", v.e.x, v.e.y, 20, "#000"], // E
-
-
-    } ,
-    f = {
-    ["dc", v.f.x, v.f.y, 20, "#000"], // F
-
-    }
-    g = {
-    ["dc", v.g.x, v.g.y, 20, "#000"], // G
-    }, 
-
-
-    ["dl", v.a.x, v.a.y, v.b.x, v.b.y], // A-B
-    ["dl", v.a.x, v.a.y, v.c.x, v.c.y], // A-C
-    ["dl", v.a.x, v.a.y, v.e.x, v.e.y], // A-E
-    ["dl", v.a.x, v.a.y, v.f.x, v.f.y], // A-F
-    ["dl", v.b.x, v.b.y, v.c.x, v.c.y], // B-C
-    ["dl", v.b.x, v.b.y, v.d.x, v.d.y], // B-D
-    ["dl", v.c.x, v.c.y, v.d.x, v.d.y], // C-D
-    ["dl", v.c.x, v.c.y, v.e.x, v.e.y], // C-E
-    ["dl", v.f.x, v.f.y, v.g.x, v.g.y], // F-G
-    ["dl", v.e.x, v.e.y, v.f.x, v.f.y], // E-F
-    ["dl", v.e.x, v.e.y, v.g.x, v.g.y], // E-G
-    ["dl", v.d.x, v.d.y, v.g.x, v.g.y], // D-G
-
-
-    ["t", "F", 30, v.f.x, v.f.y + 10, "#d3d0cb"],
-    ["t", "G", 30, v.g.x, v.g.y + 10, "#d3d0cb"],
-
-
-};
-*/
+var s = new Date();
+var start = s.getTime();
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawArrows();
     showCommands();
+    var n = new Date();
+    var now = n.getTime();
+    console.log(start);
+
+    if(times[step] >= 0 && now-start >= times[step]){
+        console.log('hi');
+        step++;
+        d = new Date();
+        start = d.getTime();
+
+    }
 
     requestAnimationFrame(draw);
 }
