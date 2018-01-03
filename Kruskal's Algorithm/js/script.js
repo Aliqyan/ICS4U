@@ -9,7 +9,8 @@ canvas.addEventListener("mousedown", getPosition, false);
 
 var rightPressed = false;
 var leftPressed = false;
-
+var s = new Date();
+var start = s.getTime();
 
 function keyDownHandler(e) {
     if (e.keyCode == 37) {
@@ -25,6 +26,8 @@ function keyDownHandler(e) {
         leftPressed = true;
         if(step < changes.length-1){
             step++;
+            s = new Date();
+            start = s.getTime();
             //updateCommands(step);
 
         }
@@ -120,34 +123,43 @@ function drawCircle(posX, posY , radius, color){
     ctx.closePath();
 }
 
-function drawLine(posX1, posY1, posX2, posY2, size){
+function drawLine(posX1, posY1, posX2, posY2, color, size){
     if(size == null){
         size = 5;
     }
     ctx.beginPath();
     ctx.moveTo(posX1,posY1);
     ctx.lineTo(posX2, posY2);
-    ctx.strokeStyle = "#d3d0cb";
+    ctx.strokeStyle = color;
     ctx.lineWidth = size;
     ctx.stroke();
 }
 
+var n = new Date();
+var now = n.getTime();
+
 function showCommands(){
     for(x in commands){
         var curr = stack[step][x];
-        //if(curr[0]){}
+        n = new Date();
+        now = n.getTime();
         if(curr != null){
-            if(curr[0] === "t"){
-            drawText(curr[1], curr[2], curr[3], curr[4], curr[5]);
-            }else if(curr[0] === "tc"){
-            drawTextConstrainted(curr[1], curr[2], curr[3], curr[4], curr[5], curr[6]);
-            }else if(curr[0] === "dc"){
-            drawCircle(curr[1], curr[2], curr[3], curr[4]);
-            }else if(curr[0] === "dl"){
-            drawLine(curr[1], curr[2], curr[3], curr[4]);
+            if(!curr[1]){
+                if(curr[0] >= 0 && now-start >= curr[0]){
+                    curr[1] = true; 
+                }   
+            }else{
+                if(curr[2] === "t"){
+                drawText(curr[3], curr[4], curr[5], curr[6], curr[7]);
+                }else if(curr[2] === "tc"){
+                drawTextConstrainted(curr[3], curr[4], curr[5], curr[6], curr[7], curr[8]);
+                }else if(curr[2] === "dc"){
+                drawCircle(curr[3], curr[4], curr[5], curr[6]);
+                }else if(curr[2] === "dl"){
+                drawLine(curr[3], curr[4], curr[5], curr[6], curr[7]);
+                }
             }
         }
-        //}
     }
 }
 
@@ -178,24 +190,13 @@ for(var i = 1; i < changes.length; i++){
     stack.push(curr)
 }
 //console.log(stack.length);
-var s = new Date();
-var start = s.getTime();
+
 
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawArrows();
     showCommands();
-    var n = new Date();
-    var now = n.getTime();
-    console.log(start);
-
-    if(times[step] >= 0 && now-start >= times[step]){
-        console.log('hi');
-        step++;
-        d = new Date();
-        start = d.getTime();
-
-    }
+    
 
     requestAnimationFrame(draw);
 }
