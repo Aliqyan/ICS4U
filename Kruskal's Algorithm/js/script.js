@@ -1,5 +1,5 @@
 
-var step = 0;
+var step = 0;//changes.length-4;
 
 //document.addEventListener("mousemove", mouseMoveHandler, false);
 document.addEventListener("keydown", keyDownHandler, false);
@@ -12,24 +12,31 @@ var leftPressed = false;
 var s = new Date();
 var start = s.getTime();
 
+var s2 = new Date();
+var start2 = s2.getTime();
+
 function keyDownHandler(e) {
-    if (e.keyCode == 37) {
+    /*if (e.keyCode == 37) {
         rightPressed = true;
         if(step > 0){
             step--;
             /*for(var i = 0; i<= step ;i++){
                 updateCommands(i);
-            }*/
+            }
         }
 
-    } else if (e.keyCode == 39) {
+    } else*/ if (e.keyCode == 32) {
         leftPressed = true;
         if(step < changes.length-1){
             step++;
             s = new Date();
             start = s.getTime();
+            s2 = new Date();
+            start2 = s2.getTime();
             //updateCommands(step);
 
+        }else{
+            step = 0;
         }
 
     }
@@ -192,11 +199,24 @@ for(var i = 1; i < changes.length; i++){
 //console.log(stack.length);
 
 
+function nextCommand(){
+    if(times[step] !=-1){
+        var n2 = new Date();
+        var now2 = n2.getTime();
+        if(now2 - start2 > times[step]){
+            step++;
+            s2 = new Date();
+            start2 = s2.getTime();
+        }
+    }
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawArrows();
     showCommands();
-    
+    nextCommand();
+
 
     requestAnimationFrame(draw);
 }

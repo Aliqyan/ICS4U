@@ -1,58 +1,77 @@
 body {
-    background-color: #1c3144;//#6e8898;
-
+    background-color: #1c3144; //#6e8898;
     color: #defffc;
     height: 100%;
     font-family: "helvetica";
     /*margin: 0;*/
-
 }
-
-
-#myCanvas{
-	background-color: #114b5f; //#2e5266;
-	display: block;
-	margin: auto;
+#myCanvas {
+    background-color: #114b5f; //#2e5266;
+    display: block;
+    margin: auto;
 }
-
-
-h1{
-	margin-top: 40px;
-	margin-bottom: 0px;
+h1 {
+    margin-top: 40px;
+    margin-bottom: 0px;
     text-align: center;
-	font-size: 80px;
+    font-size: 80px;
     height: 100%;
 }
-h2{
-	margin-top: 40px;
-	margin-bottom: 15px;
-	margin-left: 80px;
-	margin-right:;
-	font-size: 30px;
-	text-decoration: underline;
+h2 {
+    margin-top: 40px;
+    margin-bottom: 15px;
+    margin-left: 80px;
+    margin-right: ;
+    font-size: 30px;
+    text-decoration: underline;
     text-decoration-color: #f7b32b;
+}
+p {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-left: 160px;
+    margin-right: 160px;
+    font-size: 25px;
+    line-height: 1.25em;
+
+}
+ol {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-left: 200px;
+    font-size: 25px;
+    line-height: 1.25em;
 
 }
 
-p{
-	margin-top: 10px;
-	margin-bottom: 0px;
-	margin-left: 160px;
-	margin-right: 160px;
 
-	font-size: 20px;
-
-}
-hr { 
+hr {
     display: block;
     color: #f7b32b;
     margin-left: auto;
     margin-right: auto;
     border-style: inset;
     border-width: 2px;
-} 
-
-#tab{
-	width:20px;
 }
 
+pre {
+    background-color: #defffc;
+    color: #1c3144;
+    width: 1000px;
+    font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
+    font-size: 25px;
+    padding: 1em 6px 1em 16px;
+    margin-bottom: 1.5em;
+    margin-left: 300px;
+    display: block;
+    overflow: auto;
+    overflow-y: auto;
+    border: 1px solid #e2e2da;
+    border-radius: 10px;
+    line-height: 1.5em;
+}
+
+
+#tab {
+    width: 20px;
+}

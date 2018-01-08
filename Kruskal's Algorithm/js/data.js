@@ -1,6 +1,8 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var times = [0, -1, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, -1];
+var sTime = 300;
+var time = 100;
+var times = [-1, -1, time,time,time,time,time,time,time,time,time,time,time,time, -1, sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime*2,sTime,sTime*2,sTime, sTime*3, sTime*2];
 // vertices position
 var v = {
     a: {
@@ -81,7 +83,7 @@ var commands = {
     "e-letter": [0, true, "t", "E", 30, v.e.x, v.e.y + 10, baseCol],
     "f-letter": [0, true, "t", "F", 30, v.f.x, v.f.y + 10, baseCol],
     "g-letter": [0, true, "t", "G", 30, v.g.x, v.g.y + 10, baseCol],
-    "stepTitle": null,
+    "stepTitle": [0, true, "t", "Kruskal's Algorithm", 40, canvas.width / 2, 70, "#d3d0cb"], // A-B
     "a-bTable": null,
     "a-cTable": null,
     "e-cTable": null,
@@ -99,24 +101,52 @@ var commands = {
 };
 var time = 100;
 var changes = [
-    [],
+    [
+
+    ],
     [
         ["stepTitle", [0, true, "t", "1. Sort the edges in increasing order", 40, canvas.width / 2, 70, "#d3d0cb"]], // A-B
     ],
     [
         //["a-b", "del"],
-        ["a-bTable", [time * 0, false, "t", "A -- B", 25, tableX, tableY + 0 * spacer, baseCol]], 
-        ["e-cTable", [time * 1, false, "t", "E -- C", 25, tableX, tableY + 1 * spacer, baseCol]], 
-        ["b-cTable", [time * 2, false, "t", "B -- C", 25, tableX, tableY + 2 * spacer, baseCol]], 
-        ["a-fTable", [time * 3, false, "t", "A -- F", 25, tableX, tableY + 3 * spacer, baseCol]], 
+        ["a-bTable", [time * 0, false, "t", "A -- B", 25, tableX, tableY + 0 * spacer, baseCol]],
+    ],
+    [
+        ["e-cTable", [time * 1, false, "t", "E -- C", 25, tableX, tableY + 1 * spacer, baseCol]],
+    ],
+    [ 
+        ["b-cTable", [time * 2, false, "t", "B -- C", 25, tableX, tableY + 2 * spacer, baseCol]],
+    ],
+    [ 
+        ["a-fTable", [time * 3, false, "t", "A -- F", 25, tableX, tableY + 3 * spacer, baseCol]],
+    ],
+    [ 
         ["d-gTable", [time * 4, false, "t", "D -- G", 25, tableX, tableY + 4 * spacer, baseCol]],
-        ["a-eTable", [time * 5, false, "t", "A -- E", 25, tableX, tableY + 5 * spacer, baseCol]], 
-        ["c-dTable", [time * 6, false, "t", "C -- D", 25, tableX, tableY + 6 * spacer, baseCol]], 
-        ["f-eTable", [time * 7, false, "t", "F -- E", 25, tableX, tableY + 7 * spacer, baseCol]], 
-        ["e-gTable", [time * 8, false, "t", "E -- G", 25, tableX, tableY + 8 * spacer, baseCol]], 
-        ["b-dTable", [time * 9, false, "t", "B -- D", 25, tableX, tableY + 9 * spacer, baseCol]], 
+    ],
+    [
+        ["a-eTable", [time * 5, false, "t", "A -- E", 25, tableX, tableY + 5 * spacer, baseCol]],
+    ],
+    [ 
+        ["c-dTable", [time * 6, false, "t", "C -- D", 25, tableX, tableY + 6 * spacer, baseCol]],
+    ],
+    [ 
+        ["f-eTable", [time * 7, false, "t", "F -- E", 25, tableX, tableY + 7 * spacer, baseCol]],
+    ],
+    [ 
+        ["e-gTable", [time * 8, false, "t", "E -- G", 25, tableX, tableY + 8 * spacer, baseCol]],
+    ],
+    [ 
+        ["b-dTable", [time * 9, false, "t", "B -- D", 25, tableX, tableY + 9 * spacer, baseCol]],
+    ],
+    [ 
         ["a-cTable", [time * 10, false, "t", "A -- C", 25, tableX, tableY + 10 * spacer, baseCol]],
-        ["f-gTable", [time * 11, false, "t", "F -- G", 25, tableX, tableY + 11 * spacer, baseCol]], 
+    ],
+    [
+        ["f-gTable", [time * 11, false, "t", "F -- G", 25, tableX, tableY + 11 * spacer, baseCol]],
+    ],
+    
+    [
+        ["stepTitle", [0, true, "t", "2. Connect the vertices without forming a loop", 40, canvas.width / 2, 70, "#d3d0cb"]], // A-B
     ],
     //a-b
     [
@@ -125,7 +155,7 @@ var changes = [
         ["a-b val", [0, false, "t", "2", 30, (v.a.x + v.b.x) / 2 - 5, (v.a.y + v.b.y) / 2 - 10, selectCol]],
     ],
     [
-        ["tableText", [0, true, "t", "<-- works", 25, tableX + 100, tableY + 0 * spacer, "#d3d0cb"]], // A-B
+        ["tableText", [0, false, "t", "<-- works", 25, tableX + 100, tableY + 0 * spacer, "#d3d0cb"]], // A-B
     ],
     [
         ["a-bTable", [0, false, "t", "A -- B", 25, tableX, tableY + 0 * spacer, goodCol]],
@@ -140,45 +170,127 @@ var changes = [
         ["c-e val", [0, false, "t", "2", 30, (v.c.x + v.e.x) / 2 + 15, (v.c.y + v.e.y) / 2 + 30, selectCol]], // C-E
     ],
     [
-        ["tableText", [0, true, "t", "<-- works", 25, tableX + 100, tableY + 1 * spacer, "#d3d0cb"]], // A-B
+        ["tableText", [0, false, "t", "<-- works", 25, tableX + 100, tableY + 1 * spacer, "#d3d0cb"]], // A-B
     ],
     [
         ["e-cTable", [0, false, "t", "E -- C", 25, tableX, tableY + 1 * spacer, goodCol]], // E-C
-        ["c-e", [0, true, "dl", v.c.x, v.c.y, v.e.x, v.e.y, goodCol]], // C-E
-        ["c-e val", [0, true, "t", "2", 30, (v.c.x + v.e.x) / 2 + 15, (v.c.y + v.e.y) / 2 + 30, goodCol]], // C-E
+        ["c-e", [0, false, "dl", v.c.x, v.c.y, v.e.x, v.e.y, goodCol]], // C-E
+        ["c-e val", [0, false, "t", "2", 30, (v.c.x + v.e.x) / 2 + 15, (v.c.y + v.e.y) / 2 + 30, goodCol]], // C-E
     ],
     //b-c
     [
         ["tableText", []],
-        ["b-c", [0, true, "dl", v.b.x, v.b.y, v.c.x, v.c.y, selectCol]], // B-C
-        ["b-cTable", [0, true, "t", "B -- C", 25, tableX, tableY + 2 * spacer, selectCol]], // B-C
-        ["b-c val", [0, true, "t", "3", 30, (v.b.x + v.c.x) / 2 - 25, (v.b.y + v.c.y) / 2, selectCol]], // B-C
+        ["b-c", [0, false, "dl", v.b.x, v.b.y, v.c.x, v.c.y, selectCol]], // B-C
+        ["b-cTable", [0, false, "t", "B -- C", 25, tableX, tableY + 2 * spacer, selectCol]], // B-C
+        ["b-c val", [0, false, "t", "3", 30, (v.b.x + v.c.x) / 2 - 25, (v.b.y + v.c.y) / 2, selectCol]], // B-C
     ],
     [
-        ["tableText", [0, true, "t", "<-- works", 25, tableX + 100, tableY + 2 * spacer, "#d3d0cb"]], // A-B
+        ["tableText", [0, false, "t", "<-- works", 25, tableX + 100, tableY + 2 * spacer, "#d3d0cb"]], // A-B
     ],
     [
-        ["b-c", [0, true, "dl", v.b.x, v.b.y, v.c.x, v.c.y, goodCol]], // B-C
-        ["b-cTable", [0, true, "t", "B -- C", 25, tableX, tableY + 2 * spacer, goodCol]], // B-C
-        ["b-c val", [0, true, "t", "3", 30, (v.b.x + v.c.x) / 2 - 25, (v.b.y + v.c.y) / 2, goodCol]], // B-C
+        ["b-c", [0, false, "dl", v.b.x, v.b.y, v.c.x, v.c.y, goodCol]], // B-C
+        ["b-cTable", [0, false, "t", "B -- C", 25, tableX, tableY + 2 * spacer, goodCol]], // B-C
+        ["b-c val", [0, false, "t", "3", 30, (v.b.x + v.c.x) / 2 - 25, (v.b.y + v.c.y) / 2, goodCol]], // B-C
     ],
     //a-f
     [
         ["tableText", []],
-        ["b-c", [0, true, "dl", v.b.x, v.b.y, v.c.x, v.c.y, selectCol]], // B-C
-        ["a-fTable", [time * 3, false, "t", "A -- F", 25, tableX, tableY + 3 * spacer, selectCol]], 
-        ["b-c val", [0, true, "t", "3", 30, (v.b.x + v.c.x) / 2 - 25, (v.b.y + v.c.y) / 2, selectCol]], // B-C
+        ["a-f", [0, false, "dl", v.a.x, v.a.y, v.f.x, v.f.y, selectCol]], // B-C
+        ["a-fTable", [0, false, "t", "A -- F", 25, tableX, tableY + 3 * spacer, selectCol]], 
+        ["a-f val", [0, false, "t", "3", 30, (v.a.x + v.f.x) / 2 - 25, (v.a.y + v.f.y) / 2, selectCol]], // B-C
     ],
     [
-        ["tableText", [0, true, "t", "<-- works", 25, tableX + 100, tableY + 2 * spacer, "#d3d0cb"]], // A-B
+        ["tableText", [0, false, "t", "<-- works", 25, tableX + 100, tableY + 3 * spacer, "#d3d0cb"]], // A-B
     ],
     [
-        ["b-c", [0, true, "dl", v.b.x, v.b.y, v.c.x, v.c.y, goodCol]], // B-C
-        ["a-fTable", [time * 3, false, "t", "A -- F", 25, tableX, tableY + 3 * spacer, goodCol]], 
-        ["b-c val", [0, true, "t", "3", 30, (v.b.x + v.c.x) / 2 - 25, (v.b.y + v.c.y) / 2, goodCol]], // B-C
+        ["a-f", [0, false, "dl", v.a.x, v.a.y, v.f.x, v.f.y, goodCol]], // B-C
+        ["a-fTable", [0, false, "t", "A -- F", 25, tableX, tableY + 3 * spacer, goodCol]], 
+        ["a-f val", [0, false, "t", "3", 30, (v.a.x + v.f.x) / 2 - 25, (v.a.y + v.f.y) / 2, goodCol]], // B-C
     ],
 
+    //d-g
+    [
+        ["tableText", []],
+        ["d-g", [0, false, "dl", v.d.x, v.d.y, v.g.x, v.g.y, selectCol]], // B-C
+        ["d-gTable", [0, false, "t", "D -- G", 25, tableX, tableY + 4 * spacer, selectCol]], 
+        ["d-g val", [0, true, "t", "5", 30, (v.d.x + v.g.x) / 2 + 20, (v.d.y + v.g.y) / 2 - 5, selectCol]], // B-C
+    ],
+    [
+        ["tableText", [0, false, "t", "<-- works", 25, tableX + 100, tableY + 4 * spacer, "#d3d0cb"]], // A-B
+    ],
+    [
+        ["d-g", [0, false, "dl", v.d.x, v.d.y, v.g.x, v.g.y, goodCol]], // B-C
+        ["d-gTable", [0, false, "t", "D -- G", 25, tableX, tableY + 4 * spacer, goodCol]], 
+        ["d-g val", [0, true, "t", "5", 30, (v.d.x + v.g.x) / 2 + 20, (v.d.y + v.g.y) / 2 - 5, goodCol]], // B-C
+    ],
+    //a-e
+    [
+        ["tableText", []],
+        ["a-e", [0, false, "dl", v.a.x, v.a.y, v.e.x, v.e.y, selectCol]], // B-C
+        ["a-eTable", [0, false, "t", "A -- E", 25, tableX, tableY + 5 * spacer, selectCol]], 
+        ["a-e val", [0, true, "t", "6", 30, (v.a.x + v.e.x) / 2, (v.a.y + v.e.y) / 2 + 45, selectCol]], // B-C
+    ],
+    [
+        ["tableText", [0, false, "t", "<-- Creates a Loop", 25, tableX + 150, tableY + 5 * spacer, "#d3d0cb"]], // A-B
+    ],
+    /*[
+        ["a-e", [0, false, "dl", v.a.x, v.a.y, v.e.x, v.e.y, goodCol]], // B-C
+        ["a-eTable", [0, false, "t", "A -- E", 25, tableX, tableY + 5 * spacer, goodCol]], 
+        ["a-e val", [0, true, "t", "6", 30, (v.a.x + v.e.x) / 2, (v.a.y + v.e.y) / 2 + 45, goodCol]], // B-C
+    ],*/
 
+    //c-d
+    [
+        ["tableText", []],
+        ["c-d", [0, false, "dl", v.c.x, v.c.y, v.d.x, v.d.y, selectCol]], // B-C
+        ["c-dTable", [0, false, "t", "C -- D", 25, tableX, tableY + 6 * spacer, selectCol]], 
+        ["c-d val", [0, true, "t", "7", 30, (v.c.x + v.d.x) / 2, (v.c.y + v.d.y) / 2 - 5, selectCol]], // B-C
+    ],
+    [
+        ["tableText", [0, false, "t", "<-- works", 25, tableX + 100, tableY + 6 * spacer, "#d3d0cb"]], // A-B
+    ],
+    [
+        ["c-d", [0, false, "dl", v.c.x, v.c.y, v.d.x, v.d.y, goodCol]], // B-C
+        ["c-dTable", [0, false, "t", "C -- D", 25, tableX, tableY + 6 * spacer, goodCol]], 
+        ["c-d val", [0, true, "t", "7", 30, (v.c.x + v.d.x) / 2, (v.c.y + v.d.y) / 2 - 5, goodCol]], // B-C
+    ],
+    [
+        ["tableText", []],
+        ["stepTitle", [0, true, "t", "All Vertices are connected", 40, canvas.width / 2, 70, "#d3d0cb"]], // A-B
+    ],
 
+    [
+        ["a-e", []],
+        ["a-eTable", []],
+        ["a-e val", []],
+
+        ["e-f", []],
+        ["f-eTable", []],
+        ["e-f val", []],
+
+        ["e-g", []],
+        ["e-gTable", []],
+        ["e-g val", []],
+
+        ["b-d", []],
+        ["b-dTable", []],
+        ["b-d val", []],
+
+        ["a-c", []],
+        ["a-cTable", []],
+        ["a-c val", []],
+
+        ["f-g", []],
+        ["f-gTable", []],
+        ["f-g val", []],
+        ["c-dTable", [time*2, false, "t", "C -- D", 25, tableX, tableY + 5 * spacer, goodCol]], 
+
+    ],
+    [
+        ["stepTitle", [0, true, "t", "All Vertices are connected", 40, canvas.width / 2, 70, "#d3d0cb"]], // A-B
+    ],
+    [
+        ["stepTitle", [0, true, "t", "Kruskal's Algorithm is complete", 40, canvas.width / 2, 70, "#d3d0cb"]], // A-B
+    ],
 
 ];
