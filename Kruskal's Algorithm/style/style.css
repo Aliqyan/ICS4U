@@ -26,6 +26,15 @@ h2 {
     text-decoration: underline;
     text-decoration-color: #f7b32b;
 }
+h3 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    margin-left: 120px;
+    margin-right: ;
+    font-size: 27px;
+    text-decoration: underline;
+    text-decoration-color: #f7b32b;
+}
 p {
     margin-top: 10px;
     margin-bottom: 0px;
@@ -35,10 +44,19 @@ p {
     line-height: 1.25em;
 
 }
-ol {
+ol{
     margin-top: 10px;
     margin-bottom: 0px;
     margin-left: 200px;
+    font-size: 25px;
+    line-height: 1.25em;
+
+}
+
+ul {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-left: 120px;
     font-size: 25px;
     line-height: 1.25em;
 
@@ -62,12 +80,12 @@ pre {
     font-size: 25px;
     padding: 1em 6px 1em 16px;
     margin-bottom: 1.5em;
-    margin-left: 300px;
+    margin-left: 200px;
     display: block;
     overflow: auto;
     overflow-y: auto;
-    border: 1px solid #e2e2da;
-    border-radius: 10px;
+    border: 2px solid #f7b32b;;
+    /*border-radius: 10px;*/
     line-height: 1.5em;
 }
 
