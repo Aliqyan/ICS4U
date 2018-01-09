@@ -1,8 +1,8 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var sTime = 300;
-var time = 100;
-var times = [-1, -1, time,time,time,time,time,time,time,time,time,time,time,time, -1, sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime*2,sTime,sTime*2,sTime, sTime*3, sTime*2];
+var sTime = 400;
+var time = 200;
+var times = [-1, -1, time,time,time,time,time,time,time,time,time,time,time,time, time, -1, sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime,sTime*5,sTime,sTime,sTime*5,sTime, sTime*3, sTime*2, sTime];
 // vertices position
 var v = {
     a: {
@@ -84,6 +84,7 @@ var commands = {
     "f-letter": ["t", "F", 30, v.f.x, v.f.y + 10, baseCol],
     "g-letter": ["t", "G", 30, v.g.x, v.g.y + 10, baseCol],
     "stepTitle": ["t", "Kruskal's Algorithm", 40, canvas.width / 2, 70, "#d3d0cb"], // A-B
+    "rightKey": ["t", "Press the right arrow key to continue", 20, canvas.width/2, 600, "#d3d0cb"],
     "a-bTable": null,
     "a-cTable": null,
     "e-cTable": null,
@@ -109,6 +110,7 @@ var changes = [
     ],
     [
         //["a-b", "del"],
+        ["rightKey", []],
         ["a-bTable", ["t", "A -- B", 25, tableX, tableY + 0 * spacer, baseCol]],
     ],
     [
@@ -150,6 +152,11 @@ var changes = [
     ],
     //a-b
     [
+        ["rightKey", ["t", "Press the right arrow key to continue", 20, canvas.width/2, 600, "#d3d0cb"]],
+
+    ],
+    [
+    	["rightKey", []],
         ["a-bTable", ["t", "A -- B", 25, tableX, tableY + 0 * spacer, selectCol]],
         ["a-b", ["dl", v.a.x, v.a.y, v.b.x, v.b.y, selectCol]],
         ["a-b val", ["t", "2", 30, (v.a.x + v.b.x) / 2 - 5, (v.a.y + v.b.y) / 2 - 10, selectCol]],
@@ -291,6 +298,10 @@ var changes = [
     ],
     [
         ["stepTitle", ["t", "Kruskal's Algorithm is complete", 40, canvas.width / 2, 70, "#d3d0cb"]], // A-B
+    ],
+    [
+        ["rightKey", ["t", "Press the right arrow key to restart", 20, canvas.width/2, 600, "#d3d0cb"]],
+
     ],
 
 ];
