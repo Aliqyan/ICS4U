@@ -1,78 +1,106 @@
-<!Doctype html>
-	<html>
-		<head>
-			<meta charset="UTF-8">
-			<title>Kruskal's Algorithm</title>
-			<link rel="stylesheet" type="text/css" href="style/style.css">
-		</head>
-		<body>
-			
-			<h1>Kruskal's Algorithm</h1>
-			<hr>
-			<hr>
-
-			<h2>Introduction</h2>
-				<p> 
-					This Algorithm was created by Joseph Kruskal.
-					Kruskal's Algorithm's finds the Minimum Spanning Tree(MST) of a graph, meaning that it finds the smallest total edge weight needed to conect all vertices of the graph. Thus the total number of edges in a MST will be equal to one less than the number of vertices in the tree. 
+<!DOCTYPE Doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <title>
+                Kruskal's Algorithm
+            </title>
+            <link href="style/style.css" rel="stylesheet" type="text/css">
+            </link>
+        </meta>
+    </head>
+    <body>
+        <div id="content">
+            <h1>
+                Kruskal's Algorithm
+            </h1>
+            <hr>
+                <hr>
+                </hr>
+            </hr>
+            <h2>
+                Introduction
+            </h2>
+            <p>
+                This Algorithm was created in 1956 by Joseph Kruskal an American statisician, mathematician and computer schientist.Kruskal's Algorithm's finds the Minimum Spanning Tree(MST) of a graph, meaning that it finds the smallest total edge weight needed to conect all vertices of the graph. Thus the total number of edges in a MST will be equal to one less than the number of vertices in the tree. 
 
 					Kruskal's Algorithm is classified as a greedy Algorithm as it choses the smallest edge weights to create its MST.
-				</p>
-			<h2>Pseudo Code</h2>
-			<pre>KRUSKAL(G):
-1 A = ∅
-2 foreach v ∈ G.V:
-3    MAKE-SET(v)
-4 foreach (u, v) in G.E ordered by weight(u, v), increasing:
-5    if FIND-SET(u) ≠ FIND-SET(v):
-6       A = A ∪ {(u, v)}
-7       UNION(u, v)
-8 return A</pre>
-				<p>
-					Although this pseudo code seems complex, it is fairly easy to follow.
-				</p>
-				<h3>
-					Long Explanation:
-				</h3>
-				<p>
-					The above pseudo code innitializes an empty set A which will be the Minimum Spanning Tree. Line 2 and 3 are responsible for creating a set for every vertice, storing the vertices that are connected to it. Line 4 assumes that the edges are already in increasing order, (this can quickly be done using the Arrays.sort() method in java which utilises the quick sort algorithm), and then iterates through the edges. Whilst doing so it checks to see wether vertices u and v are in the same set. If they are that would mean adding the edge would create a cycle in the MST which is not allowed, so therefore the edge is ignored. Else, the edge (u,v) is added to the set A. the next step is to join the sets of u and v together as they are now connected. Lines 4 to 7 are then repeated until all the edges are covered. The MST is now created, and the pseudo code returns A.
-					This Algorithm utilises the Union Find Algorithm which has been briefly covered here through the explanation of having vertice sets which are joined together.
+            </p>
+            <h2>
+                Pseudo Code
+            </h2>
+            <pre>KRUSKAL(G):
+1  A = ∅
+2  foreach v ∈ G.V:
+3     MAKE-SET(v)
+4  foreach (u, v) in G.E ordered by weight(u, v), increasing:
+5     if FIND-SET(u) ≠ FIND-SET(v):
+6        A = A ∪ {(u, v)}
+7        UNION(u, v)
+8  return A</pre>
+            <p>
+                Although this pseudo code seems complex, it is fairly easy to follow.
+            </p>
+            <h3>
+                Long Explanation:
+            </h3>
+            <p>
+                The above pseudo code innitializes an empty set A which will be the Minimum Spanning Tree. Line 2 and 3 are responsible for creating a set for every vertice (this is a data structure called a disjoint set, for more info click her), storing the vertices that are connected to it. Line 4 assumes that the edges are already in increasing order, (this can quickly be done using the Arrays.sort() method in java which utilises the quick sort algorithm), and then iterates through the edges. Whilst doing so it checks to see wether vertices u and v are in the same set. If they are that would mean adding the edge would create a cycle in the MST which is not allowed, so therefore the edge is ignored. Else, the edge (u,v) is added to the set A. the next step is to join the sets of u and v together as they are now connected. Lines 4 to 7 are then repeated until all the edges are covered. The MST is now created, and the pseudo code returns A.
+				This Algorithm utilises the Union Find Algorithm which has been briefly covered here through the explanation of having vertice sets which are joined together.
+            </p>
+            <br>
+                <h3>
+                    Short Re-Cap:
+                </h3>
+                <ol>
+                    <li>
+                        Sort the edges of the graph in increasing order
+                    </li>
+                    <li>
+                        Add the next sorted edge if it does not create a cycle
+                    </li>
+                    <li>
+                        Repeat step 2 untill all the vertices are connected
+                    </li>
+                </ol>
+                <h2>
+                    Walk Through
+                </h2>
+                <canvas height="620" id="myCanvas" width="960">
+                </canvas>
+                <h2>
+                    Time Complexity
+                </h2>
+                <p>
 
-				</p>
-				<br>
-				<h3>
-					Short Re-Cap:
-				</h3>
-					<ol>
-					  <li>Sort the edges of the graph in increasing order</li>
-					  <li>Add the next sorted edge if it does not create a cycle</li>
-					  <li>Repeat step 2 untill all the vertices are connected</li>
-					</ol>  
-			<h2>Walk Through</h2>
-
-			<canvas id = "myCanvas" width = '960' height = '620'></canvas>
-
-			<h2>Time Complexity</h2>
-				<p>
-					
-				</p>
-
-			<h2>Applications</h2>
-
-			<h2>Sources</h2>
-			<ul>
-			  <li><a href="https://www.geeksforgeeks.org/greedy-algorithms-set-2-kruskals-minimum-spanning-tree-mst/">https://www.geeksforgeeks.org/greedy-algorithms-set-2-kruskals-minimum-spanning-tree-mst/</a></li>
-			  <li><a href="https://www.programiz.com/dsa/kruskal-algorithm">https://www.programiz.com/dsa/kruskal-algorithm</a></li>
-			</ul>  
-			<p>
-				
-			</p>
-
-			<div id ="one">
-			</div>
-
-			<script type="text/javascript" src="js/data.js"></script>
-			<script type="text/javascript" src="js/script.js"></script>
-		</body>
-	</html>
-
+                </p>
+                <h2>
+                    Applications
+                </h2>
+                	<p>Kruskal's algorithm works extremely well in cases where networks have to be formed, as the algorithm can minimize the cost/resources needed. For example Kruskal's algorithm can be used to create an electrical gridline which connects multiple houses and connection points together whilst minimizing the wiring and cost needed.</p>
+                	<p>Furthermore, Kruskal's algorithm can be applied to complex 'NP' problems like the traveling salesman problem to approximate solutions. </p>
+                <h2>
+                    Sources
+                </h2>
+                <ul>
+                    <li>
+                        <a href="https://www.geeksforgeeks.org/greedy-algorithms-set-2-kruskals-minimum-spanning-tree-mst/">
+                            https://www.geeksforgeeks.org/greedy-algorithms-set-2-kruskals-minimum-spanning-tree-mst/
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.programiz.com/dsa/kruskal-algorithm">
+                            https://www.programiz.com/dsa/kruskal-algorithm
+                        </a>
+                    </li>
+                </ul>
+                <p>
+                </p>
+                <script src="js/data.js" type="text/javascript">
+                </script>
+                <script src="js/script.js" type="text/javascript">
+                </script>
+            </br>
+        </div>
+    </body>
+</html>

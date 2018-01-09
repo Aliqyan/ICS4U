@@ -1,46 +1,57 @@
 body {
-    background-color: #1c3144; //#6e8898;
-    color: #defffc;
-    height: 100%;
-    font-family: "helvetica";
+    background-color: #EBEFF1;//* 1c3144C1; #6e8898;*/
+    font-family: MV Boli;
+    color: #565758;
     /*margin: 0;*/
 }
+#content{
+	margin: -40px 100px 0px 100px;
+	background-color: #DEEEED ; /*#6e8898;*/
+
+}
+
 #myCanvas {
-    background-color: #114b5f; //#2e5266;
+    background-color: #084C61; /*#2e5266;*/
     display: block;
     margin: auto;
+        border: 2px solid #BA1200;;
+    /*border-radius: 10px;*/
 }
 h1 {
-    margin-top: 40px;
+    color: #BA1200; /*084C61;*/
+    margin-top: 35px;
     margin-bottom: 0px;
     text-align: center;
-    font-size: 80px;
-    height: 100%;
+    font-size: 70px;
 }
 h2 {
+    color: #BA1200; /*084C61;*/
     margin-top: 40px;
     margin-bottom: 15px;
     margin-left: 80px;
     margin-right: ;
     font-size: 30px;
     text-decoration: underline;
-    text-decoration-color: #f7b32b;
+    text-decoration-color: #084C61;
 }
 h3 {
+            color: #BA1200; /*084C61;*/
+
     margin-top: 20px;
     margin-bottom: 15px;
     margin-left: 120px;
     margin-right: ;
-    font-size: 27px;
+    font-size: 25px;
     text-decoration: underline;
-    text-decoration-color: #f7b32b;
+    text-decoration-width: 2px;
+    text-decoration-color: #084C61;
 }
 p {
     margin-top: 10px;
     margin-bottom: 0px;
     margin-left: 160px;
     margin-right: 160px;
-    font-size: 25px;
+    font-size: 20px;
     line-height: 1.25em;
 
 }
@@ -65,26 +76,25 @@ ul {
 
 hr {
     display: block;
-    color: #f7b32b;
+	background-color: #084C61;
     margin-left: auto;
     margin-right: auto;
     border-style: inset;
-    border-width: 2px;
+    height: 2px;
 }
 
 pre {
-    background-color: #defffc;
-    color: #1c3144;
-    width: 1000px;
-    font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
-    font-size: 25px;
+    background-color: #EBEFF1;
+    color: #084C61;
+    width: 800px;
+    font-family: Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
+    font-size: 20px;
     padding: 1em 6px 1em 16px;
-    margin-bottom: 1.5em;
-    margin-left: 200px;
+    margin: auto;
     display: block;
     overflow: auto;
     overflow-y: auto;
-    border: 2px solid #f7b32b;;
+    border: 2px solid #BA1200;;
     /*border-radius: 10px;*/
     line-height: 1.5em;
 }

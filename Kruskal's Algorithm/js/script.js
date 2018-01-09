@@ -23,7 +23,7 @@ function keyDownHandler(e) {
             }
         }
 
-    } else*/ if (e.keyCode == 32) {
+    } else*/ if (e.keyCode == 39) {
         if(step < changes.length-1){
             step++;
 
