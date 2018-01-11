@@ -37,7 +37,7 @@ var v = {
 var tableX = 620;
 var tableY = 150;
 var spacer = 35;
-var baseCol = "#d3d0cb";
+var baseCol = "#eeeff7";
 var selectCol = "#AA0303"
 var goodCol = "#60CD00";
 var commands = {
@@ -83,8 +83,8 @@ var commands = {
     "e-letter": ["t", "E", 30, v.e.x, v.e.y + 10, baseCol],
     "f-letter": ["t", "F", 30, v.f.x, v.f.y + 10, baseCol],
     "g-letter": ["t", "G", 30, v.g.x, v.g.y + 10, baseCol],
-    "stepTitle": ["t", "Kruskal's Algorithm", 40, canvas.width / 2, 70, "#d3d0cb"], // A-B
-    "rightKey": ["t", "Press the right arrow key to continue", 20, canvas.width/2, 600, "#d3d0cb"],
+    "stepTitle": ["t", "Kruskal's Algorithm", 40, canvas.width / 2, 70, "#eeeff7"], // A-B
+    "rightKey": ["t", "Press the right arrow key to continue", 20, canvas.width/2, 600, "#eeeff7"],
     "a-bTable": null,
     "a-cTable": null,
     "e-cTable": null,
@@ -106,7 +106,7 @@ var changes = [
 
     ],
     [
-        ["stepTitle", ["t", "1. Sort the edges in increasing order", 40, canvas.width / 2, 70, "#d3d0cb"]], // A-B
+        ["stepTitle", ["t", "1. Sort the edges in increasing order", 40, canvas.width / 2, 70, "#eeeff7"]], // A-B
     ],
     [
         //["a-b", "del"],
@@ -148,11 +148,11 @@ var changes = [
     ],
     
     [
-        ["stepTitle", ["t", "2. Connect the vertices without forming a loop", 40, canvas.width / 2, 70, "#d3d0cb"]], // A-B
+        ["stepTitle", ["t", "2. Connect the vertices without forming a loop", 40, canvas.width / 2, 70, "#eeeff7"]], // A-B
     ],
     //a-b
     [
-        ["rightKey", ["t", "Press the right arrow key to continue", 20, canvas.width/2, 600, "#d3d0cb"]],
+        ["rightKey", ["t", "Press the right arrow key to continue", 20, canvas.width/2, 600, "#eeeff7"]],
 
     ],
     [
@@ -162,7 +162,7 @@ var changes = [
         ["a-b val", ["t", "2", 30, (v.a.x + v.b.x) / 2 - 5, (v.a.y + v.b.y) / 2 - 10, selectCol]],
     ],
     [
-        ["tableText", ["t", "<-- works", 25, tableX + 100, tableY + 0 * spacer, "#d3d0cb"]], // A-B
+        ["tableText", ["t", "<-- works", 25, tableX + 100, tableY + 0 * spacer, "#eeeff7"]], // A-B
     ],
     [
         ["a-bTable", ["t", "A -- B", 25, tableX, tableY + 0 * spacer, goodCol]],
@@ -177,7 +177,7 @@ var changes = [
         ["c-e val", ["t", "2", 30, (v.c.x + v.e.x) / 2 + 15, (v.c.y + v.e.y) / 2 + 30, selectCol]], // C-E
     ],
     [
-        ["tableText", ["t", "<-- works", 25, tableX + 100, tableY + 1 * spacer, "#d3d0cb"]], // A-B
+        ["tableText", ["t", "<-- works", 25, tableX + 100, tableY + 1 * spacer, "#eeeff7"]], // A-B
     ],
     [
         ["e-cTable", ["t", "E -- C", 25, tableX, tableY + 1 * spacer, goodCol]], // E-C
@@ -192,7 +192,7 @@ var changes = [
         ["b-c val", ["t", "3", 30, (v.b.x + v.c.x) / 2 - 25, (v.b.y + v.c.y) / 2, selectCol]], // B-C
     ],
     [
-        ["tableText", ["t", "<-- works", 25, tableX + 100, tableY + 2 * spacer, "#d3d0cb"]], // A-B
+        ["tableText", ["t", "<-- works", 25, tableX + 100, tableY + 2 * spacer, "#eeeff7"]], // A-B
     ],
     [
         ["b-c", ["dl", v.b.x, v.b.y, v.c.x, v.c.y, goodCol]], // B-C
@@ -207,7 +207,7 @@ var changes = [
         ["a-f val", ["t", "3", 30, (v.a.x + v.f.x) / 2 - 25, (v.a.y + v.f.y) / 2, selectCol]], // B-C
     ],
     [
-        ["tableText", ["t", "<-- works", 25, tableX + 100, tableY + 3 * spacer, "#d3d0cb"]], // A-B
+        ["tableText", ["t", "<-- works", 25, tableX + 100, tableY + 3 * spacer, "#eeeff7"]], // A-B
     ],
     [
         ["a-f", ["dl", v.a.x, v.a.y, v.f.x, v.f.y, goodCol]], // B-C
@@ -223,7 +223,7 @@ var changes = [
         ["d-g val", ["t", "5", 30, (v.d.x + v.g.x) / 2 + 20, (v.d.y + v.g.y) / 2 - 5, selectCol]], // B-C
     ],
     [
-        ["tableText", ["t", "<-- works", 25, tableX + 100, tableY + 4 * spacer, "#d3d0cb"]], // A-B
+        ["tableText", ["t", "<-- works", 25, tableX + 100, tableY + 4 * spacer, "#eeeff7"]], // A-B
     ],
     [
         ["d-g", ["dl", v.d.x, v.d.y, v.g.x, v.g.y, goodCol]], // B-C
@@ -238,7 +238,7 @@ var changes = [
         ["a-e val", ["t", "6", 30, (v.a.x + v.e.x) / 2, (v.a.y + v.e.y) / 2 + 45, selectCol]], // B-C
     ],
     [
-        ["tableText", ["t", "<-- Creates a Loop", 25, tableX + 150, tableY + 5 * spacer, "#d3d0cb"]], // A-B
+        ["tableText", ["t", "<-- Creates a Loop", 25, tableX + 150, tableY + 5 * spacer, "#eeeff7"]], // A-B
     ],
     /*[
         ["a-e", [0, false, "dl", v.a.x, v.a.y, v.e.x, v.e.y, goodCol]], // B-C
@@ -254,7 +254,7 @@ var changes = [
         ["c-d val", ["t", "7", 30, (v.c.x + v.d.x) / 2, (v.c.y + v.d.y) / 2 - 5, selectCol]], // B-C
     ],
     [
-        ["tableText", [0, false, "t", "<-- works", 25, tableX + 100, tableY + 6 * spacer, "#d3d0cb"]], // A-B
+        ["tableText", [0, false, "t", "<-- works", 25, tableX + 100, tableY + 6 * spacer, "#eeeff7"]], // A-B
     ],
     [
         ["c-d", ["dl", v.c.x, v.c.y, v.d.x, v.d.y, goodCol]], // B-C
@@ -263,7 +263,7 @@ var changes = [
     ],
     [
         ["tableText", []],
-        ["stepTitle", ["t", "All Vertices are connected", 40, canvas.width / 2, 70, "#d3d0cb"]], // A-B
+        ["stepTitle", ["t", "All Vertices are connected", 40, canvas.width / 2, 70, "#eeeff7"]], // A-B
     ],
 
     [
@@ -294,13 +294,13 @@ var changes = [
 
     ],
     [
-        ["stepTitle", ["t", "All Vertices are connected", 40, canvas.width / 2, 70, "#d3d0cb"]], // A-B
+        ["stepTitle", ["t", "All Vertices are connected", 40, canvas.width / 2, 70, "#eeeff7"]], // A-B
     ],
     [
-        ["stepTitle", ["t", "Kruskal's Algorithm is complete", 40, canvas.width / 2, 70, "#d3d0cb"]], // A-B
+        ["stepTitle", ["t", "Kruskal's Algorithm is complete", 40, canvas.width / 2, 70, "#eeeff7"]], // A-B
     ],
     [
-        ["rightKey", ["t", "Press the right arrow key to restart", 20, canvas.width/2, 600, "#d3d0cb"]],
+        ["rightKey", ["t", "Press the right arrow key to restart", 20, canvas.width/2, 600, "#eeeff7"]],
 
     ],
 

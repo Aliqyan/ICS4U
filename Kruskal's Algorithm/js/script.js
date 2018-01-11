@@ -133,7 +133,7 @@ function drawLine(posX1, posY1, posX2, posY2, color, size){
     ctx.beginPath();
     ctx.moveTo(posX1,posY1);
     ctx.lineTo(posX2, posY2);
-    ctx.strokeStyle = color;
+    ctx.strokeStyle = "#eeeff7";
     ctx.lineWidth = size;
     ctx.stroke();
 }
