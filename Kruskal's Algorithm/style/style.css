@@ -1,95 +1,72 @@
 body {
-    background-image: url("../images/background.png");//* 1c3144C1; #6e8898;*/
+    background-image: url("../images/background.png"); //* 1c3144C1; #6e8898;*/
     background-repeat: repeat;
     color: #31353c;
-    /*margin: 0;*/
 }
-#content{
-        font-family: verdana;
-
-	margin: -60px 150px 0px 150px;*/
-    padding: 0px 150px 0px 150px;
-	background-color: #ebedf3; /*#6e8898;*/
-
-
+#content {
+    font-family: verdana;
+    margin: -60px 150px 0px 150px;
+    background-color: #ebedf3;
 }
-
 #myCanvas {
-    background-color: #445877; /*#2e5266;*/
+    background-color: #445877;
     display: block;
     margin: auto;
-        border: 2px solid #94cdcf;;
-    /*border-radius: 10px;*/
+    border: 2px solid #94cdcf;
+    ;
 }
 h1 {
-
     color: #445877;
     margin-bottom: 0px;
     text-align: center;
     font-size: 80px;
 }
 h2 {
-
     color: #445877;
     margin-top: 40px;
     margin-bottom: 15px;
     margin-left: 80px;
     margin-right: ;
     font-size: 30px;
-/*    text-decoration: underline;
-    text-decoration-color: #445877;*/
 }
 h3 {
-
     color: #31353c;
-
     margin-top: 20px;
     margin-bottom: 15px;
     margin-left: 120px;
     margin-right: ;
     font-size: 25px;
-/*    text-decoration: underline;
-    text-decoration-width: 2px;
-    text-decoration-color: #445877;*/
 }
 p {
-
     margin-top: 10px;
     margin-bottom: 0px;
     margin-left: 160px;
     margin-right: 160px;
     font-size: 20px;
     line-height: 1.25em;
-
 }
-ol{
+ol {
     margin-top: 10px;
     margin-bottom: 0px;
     margin-left: 160px;
     font-size: 20px;
     line-height: 1.25em;
-
 }
-
 ul {
     margin-top: 10px;
     margin-bottom: 0px;
     margin-left: 120px;
     font-size: 20px;
     line-height: 1.25em;
-
 }
-
-
 hr {
     display: block;
-	background-color: #98a4ba;
+    background-color: #98a4ba;
     margin-left: auto;
     margin-right: auto;
     border-style: inset;
     height: 4px;
 }
-
 pre {
     background-color: #eeeff7;
     color: #31353c;
@@ -101,12 +78,11 @@ pre {
     display: block;
     overflow: auto;
     overflow-y: auto;
-    border: 2px solid #94cdcf;;
+    border: 2px solid #94cdcf;
+    ;
     /*border-radius: 10px;*/
     line-height: 1.5em;
 }
-
-
 #tab {
     width: 20px;
 }

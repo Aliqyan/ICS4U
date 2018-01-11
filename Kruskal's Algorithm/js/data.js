@@ -38,8 +38,8 @@ var tableX = 620;
 var tableY = 150;
 var spacer = 35;
 var baseCol = "#eeeff7";
-var selectCol = "#AA0303"
-var goodCol = "#60CD00";
+var selectCol = "#e80404"
+var goodCol = "#04e845";
 var commands = {
     // edge lines
     "a-b": ["dl", v.a.x, v.a.y, v.b.x, v.b.y, baseCol], // A-B
@@ -83,8 +83,10 @@ var commands = {
     "e-letter": ["t", "E", 30, v.e.x, v.e.y + 10, baseCol],
     "f-letter": ["t", "F", 30, v.f.x, v.f.y + 10, baseCol],
     "g-letter": ["t", "G", 30, v.g.x, v.g.y + 10, baseCol],
-    "stepTitle": ["t", "Kruskal's Algorithm", 40, canvas.width / 2, 70, "#eeeff7"], // A-B
+
+    "stepTitle": ["t", "Kruskal's Algorithm", 50, canvas.width / 2, 70, "#eeeff7"], // A-B
     "rightKey": ["t", "Press the right arrow key to continue", 20, canvas.width/2, 600, "#eeeff7"],
+
     "a-bTable": null,
     "a-cTable": null,
     "e-cTable": null,
@@ -101,6 +103,7 @@ var commands = {
     "tableText": null,
 };
 var time = 100;
+// each index is a step, each index in that step is an execution
 var changes = [
     [
 
@@ -109,7 +112,6 @@ var changes = [
         ["stepTitle", ["t", "1. Sort the edges in increasing order", 40, canvas.width / 2, 70, "#eeeff7"]], // A-B
     ],
     [
-        //["a-b", "del"],
         ["rightKey", []],
         ["a-bTable", ["t", "A -- B", 25, tableX, tableY + 0 * spacer, baseCol]],
     ],
@@ -240,11 +242,6 @@ var changes = [
     [
         ["tableText", ["t", "<-- Creates a Loop", 25, tableX + 150, tableY + 5 * spacer, "#eeeff7"]], // A-B
     ],
-    /*[
-        ["a-e", [0, false, "dl", v.a.x, v.a.y, v.e.x, v.e.y, goodCol]], // B-C
-        ["a-eTable", [0, false, "t", "A -- E", 25, tableX, tableY + 5 * spacer, goodCol]], 
-        ["a-e val", [0, true, "t", "6", 30, (v.a.x + v.e.x) / 2, (v.a.y + v.e.y) / 2 + 45, goodCol]], // B-C
-    ],*/
 
     //c-d
     [
