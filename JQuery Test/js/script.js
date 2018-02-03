@@ -4,9 +4,8 @@ $(document).ready(function(){
       // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
       emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
       name = $( "#name" ),
-      email = $( "#email" ),
-      password = $( "#password" ),
-      allFields = $( [] ).add( name ).add( email ).add( password ),
+      wallet = $( "#email" ),
+      allFields = $( [] ).add( name ).add( wallet ),
       tips = $( ".validateTips" );
  
     function updateTips( t ) {
@@ -44,18 +43,15 @@ $(document).ready(function(){
       allFields.removeClass( "ui-state-error" );
  
       valid = valid && checkLength( name, "username", 3, 16 );
-      valid = valid && checkLength( email, "email", 6, 80 );
-      valid = valid && checkLength( password, "password", 5, 16 );
+      valid = valid && checkLength( wallet, "wallet", 6, 80 );
  
       valid = valid && checkRegexp( name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
-      valid = valid && checkRegexp( email, emailRegex, "eg. ui@jquery.com" );
-      valid = valid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
+      valid = valid && checkRegexp( wallet, emailRegex, "eg. ui@jquery.com" );
  
       if ( valid ) {
         $( "#users tbody" ).append( "<tr>" +
           "<td>" + name.val() + "</td>" +
           "<td>" + email.val() + "</td>" +
-          "<td>" + password.val() + "</td>" +
         "</tr>" );
         dialog.dialog( "close" );
       }

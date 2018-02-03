@@ -19,3 +19,19 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+
+.animHeadShot{
+    width: 120px;
+}
+
+#displayAnimals{
+    margin:auto;
+}
+
+#users{
+    width:500px;
+}
+
+#displayAnimals div{
+    display: inline-block;
+}

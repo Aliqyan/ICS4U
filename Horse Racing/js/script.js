@@ -12,13 +12,13 @@ $(document).ready(function(){
 
     // hide canvas
     $("#race-graphic").hide();
-    var dialog, form,
+    var bettingPlayer = 0;
+    var dialog, userForm,betForm,
       
-
       // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
       players = [];
       playerName = $( "#name" ),
-      allFields = $( [] ).add( playerName ),
+      //allFields = $( [] ).add( playerName ),
       //tips is the message: ie name can not have numbers...
       tips = $( ".validateTips" );
  
@@ -53,9 +53,10 @@ $(document).ready(function(){
     }
  
     function addUser() {
-      var curr = players.push({name: playerName.val(), wallet: 1000});
+      var curr = {name: playerName.val(), wallet: 1000, bet: 0};
+      players.push(curr);
       var valid = true;
-      allFields.removeClass( "ui-state-error" );
+      //allFields.removeClass( "ui-state-error" );
  
       //valid = valid && checkLength( name, "username", 3, 16 );
       //valid = valid && checkLength( wallet, "wallet", 6, 80 );
@@ -63,44 +64,37 @@ $(document).ready(function(){
       valid = valid && checkRegexp( playerName, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
  
       if ( valid ) {
-        $( "#users tbody" ).append( "<tr>" +
-          "<td id = '"+playerName.val()+"'>" + playerName.val() + "</td>" +
-          "<td>" + "$" + players[players.length-1].wallet + "</td>" +
+        $( "#users tbody" ).append( "<tr id ='" + playerName.val() + "'>" +
+          "<td id = '"+playerName.val()+"-name'>" + playerName.val() + "</td>" +
+          "<td  id = '"+playerName.val()+"-wallet'>" + "$" + players[players.length-1].wallet + "</td>" + "<td id = '"+playerName.val()+"-bet'> 0 </td>" + 
         "</tr>" );
 
-        $("#" + playerName.val()).click(function() {
-          processBet(players[players.length-1]);
+        $("#" + playerName.val() + "-name").click(function() {
+
+          if(isBetting && curr.bet === 0){
+             $("#bet-message").text("Welcome to the Magnificient Horse Parlour! Good luck " + curr.name + "!!!");
+              bettingPlayer = curr;
+              console.log(curr.name+" :)")
+
+              betDialog.dialog( "open" );
+          }
         });
 
+        $("#" + curr.name).hover(function(){
+          console.log(curr.name + "--> " + curr.bet);
+          if(isBetting && curr.bet === 0){
+            $(this).css("background", "#007fff");
+          }
+        },
+        function(){
+            $(this).css("background", "");
+        });
       playerDialog.dialog( "close" );
 
       }
       return valid;
     }
 
-    function placeBet() {
-     // alert("hi");
-      
-      //players.push({name: playerName.val(), wallet: 1000});
-      //var valid = true;
-      //allFields.removeClass( "ui-state-error" );
- 
-      //valid = valid && checkLength( name, "username", 3, 16 );
-      //valid = valid && checkLength( wallet, "wallet", 6, 80 );
- 
-      //valid = valid && checkRegexp( playerName, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
-      betDialog.dialog( "close" );
-
-      /*if ( valid ) {
-        $( "#users tbody" ).append( "<tr>" +
-          "<td>" + players[players.length-1].name + "</td>" +
-          "<td>" + "$" + players[players.length-1].wallet + "</td>" +
-        "</tr>" );
-        dialog.dialog( "close" );
-      }
-      return valid;
-      */
-    }
  
     var playerDialog = $( "#dialog-form" ).dialog({
       autoOpen: false,
@@ -114,32 +108,37 @@ $(document).ready(function(){
         }
       },
       close: function() {
-        form[ 0 ].reset();
-        allFields.removeClass( "ui-state-error" );
+        userForm[ 0 ].reset();
+        //allFields.removeClass( "ui-state-error" );
       }
     });
 
     var betDialog = $( "#bet-form" ).dialog({
       autoOpen: false,
       height: 400,
-      width: 350,
+      width: 1000,
       modal: true,
       buttons: {
-        "Bet Time": placeBet,
+        "Bet Time": processBet,
         Cancel: function() {
           betDialog.dialog( "close" );
         }
       },
       close: function() {
-        form[ 0 ].reset();
-        allFields.removeClass( "ui-state-error" );
+        betForm[ 0 ].reset();
+        //allFields.removeClass( "ui-state-error" );
       }
     });
  
-    var form = playerDialog.find( "form" ).on( "submit", function( event ) {
+    var userForm = playerDialog.find( "form" ).on( "submit", function( event ) {
       event.preventDefault();
-      addUser();
+      //addUser();
     });
+    var betForm = betDialog.find( "form" ).on( "submit", function( event ) {
+      event.preventDefault();
+      //processBet(bettingPlayer);
+    });
+
  
     $( "#create-user" ).button().on( "click", function() {
       playerDialog.dialog( "open" );
@@ -148,15 +147,21 @@ $(document).ready(function(){
     //begin bet
      $( "#begin-betting" ).button().on( "click", function() {
       isBetting = true;
+      $("#instructHeader").text("Select a name to start Betting");
       //betDialog.dialog( "open" );
     });
     function processBet(){
-      if(isBetting){
-      console.log("j");
-      }
+      console.log(bettingPlayer.name);
+        var betAmount = $("#bet-amount");
+        bettingPlayer.bet = betAmount.val();
+        $("#" + bettingPlayer.name + "-bet").text(betAmount.val());
+        betDialog.dialog( "close" );
+        //betAmount.val(0);
     }
 
 });
+
+
 var i = 0;
 var allBears = [
     //grey
