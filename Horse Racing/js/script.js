@@ -143,19 +143,35 @@ $(document).ready(function(){
     $( "#create-user" ).button().on( "click", function() {
       playerDialog.dialog( "open" );
     });
+
+    $( "#begin-race" ).button().on( "click", function() {
+      //playerDialog.dialog( "open" );
+    });
+    $( "#begin-race" ).button( "option", "disabled", true );
+
+
     var isBetting = false;
     //begin bet
-     $( "#begin-betting" ).button().on( "click", function() {
+    $( "#begin-betting" ).button().on( "click", function() {
       isBetting = true;
       $("#instructHeader").text("Select a name to start Betting");
+      $( "#create-user" ).button( "option", "disabled", true );
+      $( "#begin-race" ).button( "option", "disabled", false );
+      $( "#begin-betting" ).button( "option", "disabled", true );
+
       //betDialog.dialog( "open" );
     });
     function processBet(){
       console.log(bettingPlayer.name);
         var betAmount = $("#bet-amount");
         bettingPlayer.bet = betAmount.val();
+        bettingPlayer.animal = chosenAnimal;
+        console.log(bettingPlayer.animal);
+        chosenAnimal.clicked = false;
+        clearAnimal(chosenAnimal.name);
         $("#" + bettingPlayer.name + "-bet").text(betAmount.val());
         betDialog.dialog( "close" );
+
         //betAmount.val(0);
     }
 

@@ -3,7 +3,7 @@ var numAnimals = Math.floor(Math.random() * 4 + 5);
 var names = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var animals = [];
 var animIndexes = [];
-
+var chosenAnimal = null;
 function chosen(index) {
     for (var i = 0; i < animIndexes.length; i++) {
         if (index === animIndexes[i]) {
@@ -29,6 +29,11 @@ function findAnimal(name) {
         }
     }
 }
+
+function clearAnimal(name){
+	$("#" + name).css("background", "");
+}
+
 for (var i = 0; i < numAnimals; i++) {
     var tempAnim = {
         type: types[Math.floor(Math.random() * types.length)],
@@ -56,20 +61,28 @@ for (var i = 0; i < numAnimals; i++) {
         }
     });
 
+
     $("#" + tempAnim.name).click(function(e) {
         var curr = findAnimal(e.currentTarget.id);
         //console.log("-->" + result.name);
-        var clicks = $(this).data('clicks');
+        //var clicks = $(this).data('clicks');
         curr.clicked = !curr.clicked;
 
-        if (!clicks) {
+        if (curr.clicked) {
         	console.log('go')
+        	console.log('--> ' + e.currentTarget.id)
+        	if(chosenAnimal !== null){
+        		console.log()
+        		chosenAnimal.clicked = false;
+        		clearAnimal(chosenAnimal.name);
+        	}
+        	chosenAnimal = curr;
             $(this).css("background", "#CFCFCF");
         } else {
             $(this).css("background", "");
         }
-        $(this).data("clicks", !clicks);
     });
     //$("#" + animals[i].name).addClass('animDisplay');
     //$("#" + animals[i].name).css('background-image', 'url("images/bear.png")');
 }
+
