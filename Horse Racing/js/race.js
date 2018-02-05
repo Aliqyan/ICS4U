@@ -24,8 +24,8 @@ function loadAnimals(){
     var track = Math.floor(4-animals.length/2);
     for(var i = 0; i<animals.length; i++){
         
-        animals[i].sX = Math.floor(Math.random()*4)*(3*48);
-        animals[i].sY = Math.floor(Math.random()*2)*(4*48)+ 96;
+        animals[i].sX = ((animals[i].picNum-1)%4)*(3*48);
+        animals[i].sY = Math.floor((animals[i].picNum-1)/4)*(4*48)+ 96;
         animals[i].x = 0;
         animals[i].y = 80*(i+track)-20;
 
@@ -46,7 +46,7 @@ function drawAnimals(){
 function updateAnimals(){
 
     for(var i = 0; i< animals.length; i++){
-        animals[i].x += Math.random() * 100 * (1 + animals[i].ranking/10 );//(animals[i].rank/10));
+        animals[i].x += Math.random() * 8 * (1 + animals[i].ranking/10 );//(animals[i].rank/10));
         animals[i].sprite++;
         animals[i].sprite %= 3;
         if(animals[i].x > finishLine){
@@ -79,15 +79,7 @@ function drawTrackLines(){
 
 }
 
-    function findWinningPlayers(){
-        for(var i = 0; i<players.length;i++){
-            for(var j = 0; j<winningAnimals.length; j++){
-                if(players[i].animal === winningAnimals[j]){
-                    winningPlayers.push(players[i]);
-                }
-            }
-        }
-    }
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -97,10 +89,9 @@ function draw() {
             winners+= winningAnimals[i].name + ", ";
         }
         winners += winningAnimals[winningAnimals.length-1].name;
-        //findWinningPlayers();
         alert("Horses: " + winners);
         distributeBets();
-        console.log('ed')
+        removeBrokePlayers();
         reset();
     }else if(isRacing){
         updateAnimals();
@@ -113,5 +104,33 @@ setInterval(draw, 80);
 
 
 function distributeBets(){
-    //give bets back
+    for(var i = 0; i<players.length;i++){
+        if(players[i].bet !==0 ){
+            var hasWon = false;
+            for(var j = 0; j<winningAnimals.length;j++){
+                if(winningAnimals[j] === players[i].animal){
+                    alert("winner --> " + players[i].name);
+                    //mad calculation add
+                    hasWon = true;
+                    players[i].wallet += players[i].bet;
+                    break;
+                }
+            }
+        
+            if(!hasWon){
+                players[i].wallet -= players[i].bet;
+                alert("looser --> " + players[i].name);
+
+            }
+        }
+    }
+}
+
+function removeBrokePlayers(){
+    for(var i = players.length-1; i>=0;i--){
+        if(players[i].wallet === 0 ){
+            alert(players[i].name + ", yo are broke and being removed from this arena.");
+            players.splice(i, 1);
+        }
+    }
 }

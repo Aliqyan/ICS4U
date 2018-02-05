@@ -2,7 +2,7 @@ var bettingPlayer = 0;
 var dialog, userForm, betForm;
 var players = [];
 var isBetting = false;
-
+var aBetMade = false;
 $(document).ready(function() {
      $("#start").button().on("click", function() {
             $("#users-contain").show();
@@ -15,10 +15,18 @@ $(document).ready(function() {
 
 
 });
+
+function findPlayer(name){
+    for (var i = 0; i < players.length; i++) {
+        if (name == players[i].name) {
+            return players[i];
+        }
+    }
+}
     function initializeGamePlay(){
         // Base Screen
-        console.log('init');
-        isBetting = false;
+       isBetting = false;
+        aBetMade = false;
         $("#users-contain").show();
 
         // hide canvas
@@ -26,17 +34,40 @@ $(document).ready(function() {
         $("#create-user").button("option", "disabled", false);
         $("#begin-betting").button("option", "disabled", false);
         $("#begin-race").button("option", "disabled", true);
+            $("#users tbody").empty();
 
         for(var i = 0; i<players.length; i++){
+             $("#users tbody").append("<tr id ='" +players[i].name + "'>" + "<td>"+(i+1)+"</td>"+ "<td id = '" + players[i].name + "-name'>" 
+                + players[i].name + "</td>" + "<td  id = '" + players[i].name + "-wallet'>" + "$" 
+                + players[i].wallet + "</td>" + "<td id = '" + players[i].name + "-bet'> - </td>" + 
+                "<td id = '" + players[i].name + "-animal'> - </td>" + "</tr>");
             players[i].bet = 0;
             players[i].animal = null;
-            $("#" + players[i].name + "-bet").text("0");
-            $("#" + players[i].name + "-wallet").text( players[i].wallet);
+ 
 
+            $("#" + players[i].name + "-name").click(function(e) {
+                var curr = findPlayer(e.currentTarget.id.substring(0,e.currentTarget.id.length - 5));
+
+                if (isBetting && curr.bet === 0) {
+                    $("#bet-message").text("Welcome to the Magnificient Horse Parlour! Good luck " + curr.name + "!!!");
+                    bettingPlayer = curr;
+                    betDialog.dialog("open");
+                }
+            });
+            $("#" + players[i].name).hover(function(e) {
+                var curr = findPlayer(e.currentTarget.id);
+
+                if (isBetting && curr.bet === 0) {
+                    $(this).css("background", "#007fff");
+                }
+            }, function() {
+                $(this).css("background", "");
+            });
         }
 
 
     }
+    var betAmount = $("#bet-amount");
     var playerName = $("#name"),
         //allFields = $( [] ).add( playerName ),
         //tips is the message: ie name can not have numbers...
@@ -61,19 +92,17 @@ $(document).ready(function() {
         };
         players.push(curr);
 
-            $("#users tbody").append("<tr id ='" + n + "'>" + "<td id = '" + n + "-name'>" + n 
+            $("#users tbody").append("<tr id ='" + n + "'>" + "<td>"+players.length+"</td>"+"<td id = '" + n + "-name'>" + n 
               + "</td>" + "<td  id = '" + n + "-wallet'>" + "$" + curr.wallet + "</td>" 
-              + "<td id = '" + n + "-bet'> 0 </td>" + "</tr>");
+              + "<td id = '" + n + "-bet'> - </td>" + "<td id = '" + n + "-animal'> - </td>" + "</tr>");
             $("#" + n + "-name").click(function() {
                 if (isBetting && curr.bet === 0) {
                     $("#bet-message").text("Welcome to the Magnificient Horse Parlour! Good luck " + curr.name + "!!!");
                     bettingPlayer = curr;
-                    console.log(curr.name + " :)")
                     betDialog.dialog("open");
                 }
             });
             $("#" + curr.name).hover(function() {
-                console.log(curr.name + "--> " + curr.bet);
                 if (isBetting && curr.bet === 0) {
                     $(this).css("background", "#007fff");
                 }
@@ -114,6 +143,24 @@ $(document).ready(function() {
             return true;
         }
     }
+
+    function checkRange(bet, low, high, message){
+        if(!(bet.val()>= low && bet.val()<=high)){
+            bet.addClass("ui-state-error");
+            updateTips(message);
+            return false;
+        }
+        return true;
+    }
+
+    function isAnimChosen(bet, anim, message){
+        if(anim === null){
+          bet.addClass("ui-state-error");
+            updateTips(message);
+            return false;
+        }
+        return true;
+    }
     function newUser(playerName, message){
       //
       for(var i = 0; i < players.length; i++){
@@ -134,7 +181,6 @@ $(document).ready(function() {
         //valid = valid && checkLength( wallet, "wallet", 6, 80 );
         valid = valid && checkRegexp(playerName, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter.");
         valid = valid && newUser(playerName, "A player with that name already exists!");
-        console.log(players);
         if (valid) {
             var curr = {
                 name: playerName.val(),
@@ -142,17 +188,18 @@ $(document).ready(function() {
                 bet: 0
             };
             players.push(curr);
-            $("#users tbody").append("<tr id ='" + playerName.val() + "'>" + "<td id = '" + playerName.val() + "-name'>" + playerName.val() + "</td>" + "<td  id = '" + playerName.val() + "-wallet'>" + "$" + players[players.length - 1].wallet + "</td>" + "<td id = '" + playerName.val() + "-bet'> 0 </td>" + "</tr>");
+            $("#users tbody").append("<tr id ='" + playerName.val() + "'>" + "<td>"+players.length+"</td>"+ "<td id = '" + playerName.val() + "-name'>" 
+                + playerName.val() + "</td>" + "<td  id = '" + playerName.val() + "-wallet'>" + "$" 
+                + players[players.length - 1].wallet + "</td>" + "<td id = '" + playerName.val() + "-bet'> - </td>" + 
+                "<td id = '" + playerName.val() + "-animal'> - </td>" + "</tr>");
             $("#" + playerName.val() + "-name").click(function() {
                 if (isBetting && curr.bet === 0) {
                     $("#bet-message").text("Welcome to the Magnificient Horse Parlour! Good luck " + curr.name + "!!!");
                     bettingPlayer = curr;
-                    console.log(curr.name + " :)")
                     betDialog.dialog("open");
                 }
             });
             $("#" + curr.name).hover(function() {
-                console.log(curr.name + "--> " + curr.bet);
                 if (isBetting && curr.bet === 0) {
                     $(this).css("background", "#007fff");
                 }
@@ -177,12 +224,12 @@ $(document).ready(function() {
         },
         close: function() {
             userForm[0].reset();
-            //allFields.removeClass( "ui-state-error" );
+            $(playerName).removeClass( "ui-state-error" );
         }
     });
     var betDialog = $("#bet-form").dialog({
         autoOpen: false,
-        height: 400,
+        height: 450,
         width: 1000,
         modal: true,
         buttons: {
@@ -193,7 +240,7 @@ $(document).ready(function() {
         },
         close: function() {
             betForm[0].reset();
-            //allFields.removeClass( "ui-state-error" );
+            $(betAmount).removeClass( "ui-state-error" );
         }
     });
 
@@ -210,9 +257,14 @@ $(document).ready(function() {
         playerDialog.dialog("open");
     });
     $("#begin-race").button().on("click", function() {
-        $("#users-contain").hide();
-        race();
-        $("#race-graphic").show();
+        if(aBetMade){
+            $("#users-contain").hide();
+            race();
+            $("#race-graphic").show();  
+        }else{
+            alert("One Bet Minimum must be made!");
+        }
+
 
     });
 
@@ -228,16 +280,25 @@ $(document).ready(function() {
     });
 
     function processBet() {
-        console.log(bettingPlayer.name);
-        var betAmount = $("#bet-amount");
-        bettingPlayer.bet = betAmount.val();
-        bettingPlayer.animal = chosenAnimal;
-        console.log(bettingPlayer.animal);
-        chosenAnimal.clicked = false;
-        clearAnimal(chosenAnimal.name);
-        $("#" + bettingPlayer.name + "-bet").text(betAmount.val());
-        betDialog.dialog("close");
-        //betAmount.val(0);
+
+        var valid = true;
+        valid = valid && checkRegexp(betAmount, /^\d+$/, "Bet may consist of 0-9");
+        valid = valid && checkRange(betAmount, 5, bettingPlayer.wallet, "Bet must be between 0 and " + bettingPlayer.wallet);
+        valid = valid && isAnimChosen(betAmount, chosenAnimal, "You must Chose an animal!");
+
+        if(valid ){
+            bettingPlayer.bet = parseInt(betAmount.val());
+            bettingPlayer.animal = chosenAnimal;
+            chosenAnimal.clicked = false;
+            clearAnimal(chosenAnimal.name);
+            $("#" + bettingPlayer.name + "-bet").text(betAmount.val());
+            $("#" + bettingPlayer.name + "-wallet").text(bettingPlayer.wallet - bettingPlayer.bet);
+            $("#" + bettingPlayer.name + "-animal").text(chosenAnimal.name);
+            aBetMade = true;
+            betDialog.dialog("close");
+            //betAmount.val(0);
+        }
+
     }
 
     function reset(){

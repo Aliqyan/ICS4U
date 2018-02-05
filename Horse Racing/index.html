@@ -41,28 +41,31 @@
                 </div>
 
                 <div id="bet-form" title="Bet YOUR MOOOOOOOOOOOONEY">
-                    <p class="validateBets">
+                    <p class="validateTips">
                         All form fields are required.
                     </p>
                     <p id = "bet-message"></p>
                     <div id = "displayAnimals"></div>
                     <form>
-                        <fieldset>
                             <label for="bet">
                                 Bet Amount: $
                             </label>
                             <input class="text ui-widget-content ui-corner-all" id="bet-amount" name="bet" type="text" placeholder ="10.00">
-                        </fieldset>
                     </form>
                 </div>
 
                 <div  id="users-contain">
+                    <div id= "instructions">
                     <h1 id = "instructHeader">
                         Add Users:
                     </h1>
+                </div>
                     <table class="ui-widget ui-widget-content" id="users">
                         <thead>
                             <tr class="ui-widget-header ">
+                                <th width= "20px">
+                                    #
+                                </th>
                                 <th>
                                     Name
                                 </th>
@@ -71,6 +74,9 @@
                                 </th>
                                 <th>
                                     Bet
+                                </th>
+                                <th>
+                                    Animal
                                 </th>
                             </tr>
                         </thead>

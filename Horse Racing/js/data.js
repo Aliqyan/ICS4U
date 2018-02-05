@@ -3,7 +3,7 @@ var numAnimals;// = Math.floor(Math.random() * 4 + 5);
 var names = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var animals;// = [];
 var animIndexes;//\\ [];
-var chosenAnimal; ////= null;
+var chosenAnimal = null; ////= null;
 initializeHorses();
 function chosen(index) {
     for (var i = 0; i < animIndexes.length; i++) {
@@ -39,7 +39,6 @@ function chooseType(index){
 	var type = types[Math.floor(Math.random() * types.length)];
 
 	while(numAnimals >6 && index ===0 && (type === "rooster" || type ==="camel" || type === "horse")){
-		console.log("hi")
 		type = types[Math.floor(Math.random() * types.length)];
 	}
 	return type;
@@ -54,13 +53,12 @@ function initializeHorses(){
 	    var tempAnim = {
 	        type: chooseType(i),
 	        name: horseName(), //horseName(),
-	        ranking: (Math.random()*4 + 1).toFixed(2),
+	        ranking: (i===1)? 8:(Math.random()*4 + 1).toFixed(2),
 	        clicked: false,
+	        picNum:  Math.floor(Math.random()*8)+1,
 	    };
-	    console.log("-->" + tempAnim.ranking);
 	    animals.push(tempAnim);
-	    console.log(tempAnim.name);
-	    var imgSrc = 'images/' + tempAnim.type + 'face.png';
+	    var imgSrc = 'images/faces/' + tempAnim.type + tempAnim.picNum + 'face.png';
 
 	    $("#displayAnimals").append("<div id = '" + tempAnim.name + "'><img class ='animHeadShot' src = '" + imgSrc + "'><h3>"
 	    	 + tempAnim.name + "</h3><h4>"+tempAnim.type+"</h4><h4>"+tempAnim.ranking+"</h4></div>");
@@ -71,7 +69,6 @@ function initializeHorses(){
 	    //e.currentTarget.id 
 	    $("#" + tempAnim.name).hover(function(e) {
 	        var curr = findAnimal(e.currentTarget.id);
-	        console.log(e.currentTarget.id);
 	        if (!curr.clicked) {
 	            $(this).css("background", "#007fff");
 	        }
@@ -86,21 +83,19 @@ function initializeHorses(){
 
 	    $("#" + tempAnim.name).click(function(e) {
 	        var curr = findAnimal(e.currentTarget.id);
-	        //console.log("-->" + result.name);
 	        //var clicks = $(this).data('clicks');
 	        curr.clicked = !curr.clicked;
 
 	        if (curr.clicked) {
-	        	console.log('go')
-	        	console.log('--> ' + e.currentTarget.id)
 	        	if(chosenAnimal !== null){
-	        		console.log()
 	        		chosenAnimal.clicked = false;
 	        		clearAnimal(chosenAnimal.name);
 	        	}
 	        	chosenAnimal = curr;
 	            $(this).css("background", "#CFCFCF");
 	        } else {
+	        	chosenAnimal = null;
+
 	            $(this).css("background", "");
 	        }
 	    });
