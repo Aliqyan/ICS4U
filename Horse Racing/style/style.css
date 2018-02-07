@@ -1,6 +1,6 @@
 body{
-    background-color: #e8ffed;
-
+    background-color: #ddd8c4;
+    color: #50808e;
     margin:0;
     padding: 0;
     height:100%;
@@ -11,6 +11,12 @@ body{
     background-size: 50px;
 	margin:auto;
 	display: block;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 table {
@@ -20,28 +26,43 @@ table {
 }
 
 td, th {
-    border: 1px solid #dddddd;
+    border: 1px solid #a39c9c;
     text-align: left;
     padding: 8px;
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: #84b59f;
+        color: #000;
+
+}
+tbody tr{
+        background-color:   #a3c9a8;
+        color: #000;
+
 }
 
 .animHeadShot{
-    width: 120px;
+    width: 100%;
 }
 
 #displayAnimals{
+    width: 700px;
+    margin: auto;
+
     text-align:center;
 
     display: block;
 
 }
 #displayAnimals div{
+        width: 120px;
+
     display: inline-block;
-    margin: 0 auto;
+    margin: 5px;
+    padding: 10px;
+    border: 2px solid black; 
+    border-radius: 3px;
 
 }
 #displayAnimals h3,h4{
@@ -68,7 +89,6 @@ tr:nth-child(even) {
 
 #start-screen{
         text-align:center;
-    color: #000;
     margin:auto;
     min-height: 100%;
      position: fixed;
@@ -90,4 +110,17 @@ tr:nth-child(even) {
 #bet-form form{
     margin-top: 20px;
     text-align: center;
+}
+
+#ui-state-hover{
+    background-color: #69a297;
+
+}
+button{
+    background-color: #a39c9c;
+}
+
+#final-message{
+    width: 600px;
+    height:600px;
 }

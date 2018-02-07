@@ -1,6 +1,6 @@
-var types = ["bear", "turtle", "racoon",  "cat", "duck", "camel", "horse", "rooster"];
+var types = ["bear", "turtle", "racoon",  "cat", "duck", "camel"];//"horse", "rooster"];
 var numAnimals;// = Math.floor(Math.random() * 4 + 5);
-var names = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+var names = ["Kincsem","Black","Peppers","Eclipse","Karayel","Ormonde","Prestige","Ribot","Colin","Macon","Frankel","Highflyer","Nearco","Barcaldine","Personal","Tremont","Asteroid","Braque","Crucifix","Goldfinder","Kurifuji","Nereide","Tokino","Bahram","Combat","Grand","Patience","Regulus","St.","Alipes","American","Caracalla","Maruzensky","Sweetbriar","Tiffin","El","Heliskier*","Kitano","Malt","Mannamead","Perdita","The","Zarkava","Bay","Bustin","Candy","Cavaliere","Claude","Hurry","Quintessence","Tolgus","Ajax","Dice","Emerson","Flying","Husson","Kneller","Landaluce","Landgraf","Melair","Norfolk","Precocious","Reset","Fasliyev","Teofilo","Treve*","Queen's","Agnes","Blood","Certify*","Fuji","Golden","Lammtarra","Madelia","Raise","Snap","Vindication","White","Blue","Boniform","Cobweb","Danzig","Kantharos","Pharis"];
 var animals;// = [];
 var animIndexes;//\\ [];
 var chosenAnimal = null; ////= null;
@@ -43,8 +43,16 @@ function chooseType(index){
 	}
 	return type;
 }
+function choosePicNum(){
+	var n = Math.floor(Math.random()*8)+1;
+
+	while(n===3 || n===4){
+		n = Math.floor(Math.random()*8)+1;
+	}
+	return n;
+}
 function initializeHorses(){
-	numAnimals = Math.floor(Math.random() * 4 + 5);
+	numAnimals =Math.floor(Math.random() * 4 + 5);
 	animIndexes = [];
 	chosenAnimal = null;
 	animals = [];
@@ -55,13 +63,14 @@ function initializeHorses(){
 	        name: horseName(), //horseName(),
 	        ranking: (i===1)? 8:(Math.random()*4 + 1).toFixed(2),
 	        clicked: false,
-	        picNum:  Math.floor(Math.random()*8)+1,
+	        picNum:  choosePicNum(),
 	    };
+	    console.log(tempAnim)
 	    animals.push(tempAnim);
 	    var imgSrc = 'images/faces/' + tempAnim.type + tempAnim.picNum + 'face.png';
 
 	    $("#displayAnimals").append("<div id = '" + tempAnim.name + "'><img class ='animHeadShot' src = '" + imgSrc + "'><h3>"
-	    	 + tempAnim.name + "</h3><h4>"+tempAnim.type+"</h4><h4>"+tempAnim.ranking+"</h4></div>");
+	    	 + tempAnim.name + "</h3><h4> the "+tempAnim.type+"</h4><h4> rank: "+tempAnim.ranking+"</h4></div>");
 
 	    //top, right, bottom, left
 	    $("#" +tempAnim.name + " img").css('clip', 'rect(0px, 100px, 20px, 0px)');
@@ -70,7 +79,7 @@ function initializeHorses(){
 	    $("#" + tempAnim.name).hover(function(e) {
 	        var curr = findAnimal(e.currentTarget.id);
 	        if (!curr.clicked) {
-	            $(this).css("background", "#007fff");
+	            $(this).css("background", "#69a297");
 	        }
 	    }, function(e) {
 	    	var curr = findAnimal(e.currentTarget.id);
@@ -92,7 +101,7 @@ function initializeHorses(){
 	        		clearAnimal(chosenAnimal.name);
 	        	}
 	        	chosenAnimal = curr;
-	            $(this).css("background", "#CFCFCF");
+	            $(this).css("background", "#50808e");
 	        } else {
 	        	chosenAnimal = null;
 

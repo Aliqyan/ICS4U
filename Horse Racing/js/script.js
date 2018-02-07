@@ -10,10 +10,7 @@ $(document).ready(function() {
     });
     $("#users-contain").hide();
     $("#race-graphic").hide();
-
-
-
-
+    $("#final-message").hide();
 });
 
 function findPlayer(name){
@@ -58,7 +55,7 @@ function findPlayer(name){
                 var curr = findPlayer(e.currentTarget.id);
 
                 if (isBetting && curr.bet === 0) {
-                    $(this).css("background", "#007fff");
+                    $(this).css("background", "#50808e");
                 }
             }, function() {
                 $(this).css("background", "");
@@ -104,7 +101,7 @@ function findPlayer(name){
             });
             $("#" + curr.name).hover(function() {
                 if (isBetting && curr.bet === 0) {
-                    $(this).css("background", "#007fff");
+                    $(this).css("background", "#50808e");
                 }
             }, function() {
                 $(this).css("background", "");
@@ -201,7 +198,7 @@ function findPlayer(name){
             });
             $("#" + curr.name).hover(function() {
                 if (isBetting && curr.bet === 0) {
-                    $(this).css("background", "#007fff");
+                    $(this).css("background", "#50808e");
                 }
             }, function() {
                 $(this).css("background", "");
@@ -229,8 +226,8 @@ function findPlayer(name){
     });
     var betDialog = $("#bet-form").dialog({
         autoOpen: false,
-        height: 450,
-        width: 1000,
+        height: 690,
+        width: 850,
         modal: true,
         buttons: {
             "Bet Time": processBet,
@@ -241,6 +238,19 @@ function findPlayer(name){
         close: function() {
             betForm[0].reset();
             $(betAmount).removeClass( "ui-state-error" );
+        }
+    });
+    var resultDialog = $("#final-message").dialog({
+        autoOpen: false,
+        height: 450,
+        width: 1000,
+        modal: true,
+        buttons: {
+            "Continue": reset,
+            "Quit": exit,
+        },
+        close: function() {
+            //resultDialog[0].reset();
         }
     });
 
@@ -262,7 +272,9 @@ function findPlayer(name){
             race();
             $("#race-graphic").show();  
         }else{
-            alert("One Bet Minimum must be made!");
+            $("#warning").fadeIn(1000);  
+            $("#warning").text("***You must make a minimum of One Bet***");
+            //alert("One Bet Minimum must be made!");
         }
 
 
@@ -302,7 +314,13 @@ function findPlayer(name){
     }
 
     function reset(){
+        resultDialog.dialog("close");
         initializeGamePlay();
         initializeHorses();
         innitializeRace();
+
+    }
+    function exit(){
+
+
     }
