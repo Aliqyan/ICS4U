@@ -11,11 +11,15 @@ function innitializeRace(){
     raceOver = false;
     winningAnimals = [];
     winningPlayers = [];
-     $("#final-message").empty();
+    $("#final-message").empty();
+     $("#final-message").append("<p id = 'display-winner'></p> <div id = 'display-winner'></div>");
+
     timer = setInterval(draw, 10);
 
 }
 function race(){
+    $("#background-opacity").show();
+
     loadAnimals();
     isRacing = true;
 }
@@ -93,12 +97,12 @@ function draw() {
     drawTrackLines();
     drawAnimals();
 }
-var timer = setInterval(draw, 10);
+var timer = setInterval(draw, 60);
 
 
 function distributeBets(){
-    var winningPlayers = "";
-    var losingPlayers = "";
+    var winningPlayers = [];
+    var losingPlayers = [];
     for(var i = 0; i<players.length;i++){
         if(players[i].bet !==0 ){
             var hasWon = false;
@@ -106,8 +110,9 @@ function distributeBets(){
                 if(winningAnimals[j] === players[i].animal){
                     hasWon = true;
                     var winnings = players[i].bet;
-                    players[i].wallet += players[i].bet;
-                    winningPlayers += players[i].name + ", " ;
+                    players[i].reward = Math.floor(players[i].bet * (2.5/players[i].animal.ranking));
+                    players[i].wallet += players[i].reward;
+                    winningPlayers.push(players[i]);
 
                     //mad calculation add
                     break;
@@ -116,53 +121,47 @@ function distributeBets(){
         
             if(!hasWon){
                 players[i].wallet -= players[i].bet;
-                losingPlayers += players[i].name + ", ";
+                losingPlayers.push(players[i]);
             }
         }
 
     }
-    if(winningPlayers.length !== 0){
-        winningPlayers =winningPlayers.substring(0, winningPlayers.length-2);
-        $("#final-message").append("<h2>The folowing players have won: " + winningPlayers + "</h2>");
-    }
-    if(losingPlayers.length !== 0){
-        losingPlayers = losingPlayers.substring(0, losingPlayers.length-2);
-        $("#final-message").append("<h2>The folowing players have lost: " + losingPlayers+ "</h2>");
-    }
-    removeBrokePlayers();
+        for(var i = 0; i<winningPlayers.length;i++){
+            $("#final-message").append("<p>Congratulations, " + winningPlayers[i].name + ". After you have won $" + winningPlayers[i].reward + ", adjusted for animal ranking, your new wallet amount is $" + winningPlayers[i].wallet + ".</p>");
+        }
+    
+        for(var i = 0; i<losingPlayers.length;i++){
+            var removalMessage = "";
+            if(losingPlayers[i].wallet === 0 ){
+                removalMessage = "As you are broke you will be removed for the game.";
+            }
+            $("#final-message").append("<p>Sorry, " + losingPlayers[i].name + ". You have lost $" + losingPlayers[i].bet + ", your new wallet amount is $" + losingPlayers[i].wallet + ". " + removalMessage + "</p>");
+        }
+        removeBrokePlayers();
 }
 
 function removeBrokePlayers(){
-    var brokePlayers = "";
             for(var i = players.length-1; i>=0;i--){
                 if(players[i].wallet === 0 ){
-                    brokePlayers += players[i].name + ", ";
                     players.splice(i, 1);
                 }
             }
-            if(brokePlayers.length !== 0){
-                brokePlayers = brokePlayers.substring(0, brokePlayers.length-2);
-                $("#final-message").append("<h2>The folowing players are broke and will be removed: " + brokePlayers + "</h2>");
-            }  
-    
-
-
 }
 
 function displayWinningAnimals(){
-        var winners = "";
+        $("#text-winner").append("The folowing animals have won: ");
         for(var i = 0; i<winningAnimals.length;i++){
-            winners+= winningAnimals[i].name + ", ";
+            var imgSrc = 'images/faces/' + winningAnimals[i].type + winningAnimals[i].picNum + 'face.png';
+            $("#display-winner").append("<div><img class ='animHeadShot' src = '" + imgSrc + "'><h3>"
+             + winningAnimals[i].name + "</h3><h4> the "+winningAnimals[i].type+"</h4><h4> Rank: "+winningAnimals[i].ranking+"</h4></div>");        
         }
-
-        if(winners.length !== 0){
-            winners = winners.substring(0, winners.length-2);
-            $("#final-message").append("<h2>The folowing animals have won: " + winners+ "</h2>");
-        }       
 }
 function processRaceEnd(){
+    console.log(winningAnimals)
         displayWinningAnimals()
         distributeBets();
         removeBrokePlayers();
+        $("#background-opacity").css("z-index", 3);
+
         resultDialog.dialog("open");
 }

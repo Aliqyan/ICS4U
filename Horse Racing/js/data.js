@@ -61,7 +61,7 @@ function initializeHorses(){
 	    var tempAnim = {
 	        type: chooseType(i),
 	        name: horseName(), //horseName(),
-	        ranking: (i===1)? 8:(Math.random()*4 + 1).toFixed(2),
+	        ranking: (Math.random()*4 + 1).toFixed(2),
 	        clicked: false,
 	        picNum:  choosePicNum(),
 	    };
@@ -70,7 +70,7 @@ function initializeHorses(){
 	    var imgSrc = 'images/faces/' + tempAnim.type + tempAnim.picNum + 'face.png';
 
 	    $("#displayAnimals").append("<div id = '" + tempAnim.name + "'><img class ='animHeadShot' src = '" + imgSrc + "'><h3>"
-	    	 + tempAnim.name + "</h3><h4> the "+tempAnim.type+"</h4><h4> rank: "+tempAnim.ranking+"</h4></div>");
+	    	 + tempAnim.name + "</h3><h4> the "+tempAnim.type+"</h4><h4> Rank: "+tempAnim.ranking+"</h4></div>");
 
 	    //top, right, bottom, left
 	    $("#" +tempAnim.name + " img").css('clip', 'rect(0px, 100px, 20px, 0px)');

@@ -11,6 +11,11 @@ $(document).ready(function() {
     $("#users-contain").hide();
     $("#race-graphic").hide();
     $("#final-message").hide();
+    $("#end-screen").hide();
+    $("#background-opacity").hide();
+
+
+
 });
 
 function findPlayer(name){
@@ -22,9 +27,11 @@ function findPlayer(name){
 }
     function initializeGamePlay(){
         // Base Screen
+    $("#background-opacity").css("z-index", 1);
        isBetting = false;
         aBetMade = false;
         $("#users-contain").show();
+
 
         // hide canvas
         $("#race-graphic").hide();
@@ -39,6 +46,8 @@ function findPlayer(name){
                 + players[i].wallet + "</td>" + "<td id = '" + players[i].name + "-bet'> - </td>" + 
                 "<td id = '" + players[i].name + "-animal'> - </td>" + "</tr>");
             players[i].bet = 0;
+            players[i].reward = 0;
+
             players[i].animal = null;
  
 
@@ -48,6 +57,7 @@ function findPlayer(name){
                 if (isBetting && curr.bet === 0) {
                     $("#bet-message").text("Welcome to the Magnificient Horse Parlour! Good luck " + curr.name + "!!!");
                     bettingPlayer = curr;
+                    $("#background-opacity").show();
                     betDialog.dialog("open");
                 }
             });
@@ -96,6 +106,7 @@ function findPlayer(name){
                 if (isBetting && curr.bet === 0) {
                     $("#bet-message").text("Welcome to the Magnificient Horse Parlour! Good luck " + curr.name + "!!!");
                     bettingPlayer = curr;
+                    $("#background-opacity").show();
                     betDialog.dialog("open");
                 }
             });
@@ -193,7 +204,9 @@ function findPlayer(name){
                 if (isBetting && curr.bet === 0) {
                     $("#bet-message").text("Welcome to the Magnificient Horse Parlour! Good luck " + curr.name + "!!!");
                     bettingPlayer = curr;
+                    $("#background-opacity").show();
                     betDialog.dialog("open");
+
                 }
             });
             $("#" + curr.name).hover(function() {
@@ -203,6 +216,7 @@ function findPlayer(name){
             }, function() {
                 $(this).css("background", "");
             });
+
             playerDialog.dialog("close");
         }
         return valid;
@@ -216,10 +230,13 @@ function findPlayer(name){
         buttons: {
             "Create an account": addUser,
             Cancel: function() {
+
                 playerDialog.dialog("close");
             }
         },
         close: function() {
+            $("#background-opacity").hide();
+
             userForm[0].reset();
             $(playerName).removeClass( "ui-state-error" );
         }
@@ -236,20 +253,22 @@ function findPlayer(name){
             }
         },
         close: function() {
+            $("#background-opacity").hide();
             betForm[0].reset();
             $(betAmount).removeClass( "ui-state-error" );
         }
     });
     var resultDialog = $("#final-message").dialog({
         autoOpen: false,
-        height: 450,
-        width: 1000,
+        height: 550,
+        width: 400,
         modal: true,
         buttons: {
             "Continue": reset,
             "Quit": exit,
         },
         close: function() {
+            $("#background-opacity").hide();
             //resultDialog[0].reset();
         }
     });
@@ -264,6 +283,8 @@ function findPlayer(name){
     });
 
     $("#create-user").button().on("click", function() {
+            $("#background-opacity").show();
+
         playerDialog.dialog("open");
     });
     $("#begin-race").button().on("click", function() {
@@ -295,7 +316,7 @@ function findPlayer(name){
 
         var valid = true;
         valid = valid && checkRegexp(betAmount, /^\d+$/, "Bet may consist of 0-9");
-        valid = valid && checkRange(betAmount, 5, bettingPlayer.wallet, "Bet must be between 0 and " + bettingPlayer.wallet);
+        valid = valid && checkRange(betAmount, 1, bettingPlayer.wallet, "Bet must be between $1 and $" + bettingPlayer.wallet);
         valid = valid && isAnimChosen(betAmount, chosenAnimal, "You must Chose an animal!");
 
         if(valid ){
@@ -303,10 +324,11 @@ function findPlayer(name){
             bettingPlayer.animal = chosenAnimal;
             chosenAnimal.clicked = false;
             clearAnimal(chosenAnimal.name);
-            $("#" + bettingPlayer.name + "-bet").text(betAmount.val());
-            $("#" + bettingPlayer.name + "-wallet").text(bettingPlayer.wallet - bettingPlayer.bet);
+            $("#" + bettingPlayer.name + "-bet").text("$" + betAmount.val());
+            $("#" + bettingPlayer.name + "-wallet").text("$" + (bettingPlayer.wallet - bettingPlayer.bet));
             $("#" + bettingPlayer.name + "-animal").text(chosenAnimal.name);
             aBetMade = true;
+
             betDialog.dialog("close");
             //betAmount.val(0);
         }
@@ -321,6 +343,8 @@ function findPlayer(name){
 
     }
     function exit(){
-
+        resultDialog.dialog("close");
+        $("#race-graphic").hide();
+        $("#end-screen").show();
 
     }

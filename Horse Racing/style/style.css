@@ -17,6 +17,8 @@ body{
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 2;
+
 }
 
 table {
@@ -82,7 +84,9 @@ tbody tr{
 }
 
 #users-contain{
-    margin:auto;
+    margin:auto;   
+    margin-top: 100px;
+
     text-align:center;
 }
 
@@ -99,28 +103,83 @@ tbody tr{
       overflow: auto;
   
 }
-#start{
-            text-align:center;
 
-    font-size: 30px;
-    width:200px;
-    height:100px;
-}
 
 #bet-form form{
     margin-top: 20px;
     text-align: center;
 }
 
-#ui-state-hover{
-    background-color: #69a297;
 
-}
-button{
-    background-color: #a39c9c;
-}
 
 #final-message{
     width: 600px;
     height:600px;
+}
+
+#end-screen{
+    text-align:center;
+    min-height: 100%;
+    line-height: 40%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      overflow: auto;
+      padding-top: 280px;
+      font-size: 2em;
+}
+
+#start-screen{
+    padding-top: 320px;
+    font-size: 2em;
+    line-height: 40%;
+
+}
+#start{
+    text-align:center;
+    border-radius: 20px;
+    font-size: ;
+    width:200px;
+    height:100px;
+}
+#background-opacity{
+    background-color: #000000;
+    opacity: 0.6;
+    z-index: 1;
+    min-height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      overflow: auto;
+}
+
+#final-message .ui-dialog-titlebar-close {
+  display: none;
+}
+
+#display-winner{
+    margin: auto;
+
+    text-align:center;
+
+    display: block;
+
+}
+#display-winner div{
+        width: 130px;
+    display: inline-block;
+    margin: 5px;
+    padding: 10px;
+    border: 2px solid black; 
+    border-radius: 3px;
+
+}
+#display-winner h3,h4{
+    margin: 0;
+    padding: 0;
+
 }
