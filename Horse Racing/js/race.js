@@ -14,7 +14,7 @@ function innitializeRace(){
     $("#final-message").empty();
      $("#final-message").append("<p id = 'display-winner'></p> <div id = 'display-winner'></div>");
 
-    timer = setInterval(draw, 10);
+    timer = setInterval(draw, 60);
 
 }
 function race(){
@@ -133,7 +133,7 @@ function distributeBets(){
         for(var i = 0; i<losingPlayers.length;i++){
             var removalMessage = "";
             if(losingPlayers[i].wallet === 0 ){
-                removalMessage = "As you are broke you will be removed for the game.";
+                removalMessage = "As you are broke you will be removed from the game.";
             }
             $("#final-message").append("<p>Sorry, " + losingPlayers[i].name + ". You have lost $" + losingPlayers[i].bet + ", your new wallet amount is $" + losingPlayers[i].wallet + ". " + removalMessage + "</p>");
         }

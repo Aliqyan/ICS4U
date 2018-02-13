@@ -200,7 +200,7 @@ function findPlayer(name){
                 + playerName.val() + "</td>" + "<td  id = '" + playerName.val() + "-wallet'>" + "$" 
                 + players[players.length - 1].wallet + "</td>" + "<td id = '" + playerName.val() + "-bet'> - </td>" + 
                 "<td id = '" + playerName.val() + "-animal'> - </td>" + "</tr>");
-            $("#" + playerName.val() + "-name").click(function() {
+            $("#" + playerName.val() + "-name").click(function(e) {
                 if (isBetting && curr.bet === 0) {
                     $("#bet-message").text("Welcome to the Magnificient Horse Parlour! Good luck " + curr.name + "!!!");
                     bettingPlayer = curr;
