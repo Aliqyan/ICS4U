@@ -180,6 +180,15 @@ function findPlayer(name){
       }
       return true;
     }
+
+    function noSpaces(playerName, message){
+      if(playerName.val().indexOf(" ") >= 0){
+          playerName.addClass("ui-state-error");
+            updateTips(message);
+            return false;
+        }
+       return true;
+    }
   
     function addUser() {
 
@@ -189,6 +198,8 @@ function findPlayer(name){
         //valid = valid && checkLength( wallet, "wallet", 6, 80 );
         valid = valid && checkRegexp(playerName, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter.");
         valid = valid && newUser(playerName, "A player with that name already exists!");
+        valid = valid && noSpaces(playerName, "Only a first name with no spaces is alowed!");
+
         if (valid) {
             var curr = {
                 name: playerName.val(),
