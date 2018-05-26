@@ -1,0 +1,55 @@
+body {
+    background-color: #1a344ad1;
+    color: #6db13c;
+}
+h1{
+
+}
+
+p {
+	font-family: cursive;
+}
+
+p img{
+	width: 25%;
+}
+
+.class1 {
+	color:red;
+}
+
+.class2 {
+	border: 1px blue dashed;
+	border-radius: 15px;
+}
+
+#p1{
+	border-radius: 10px;
+}
+#myCanvas{
+	background-color: #EDE6CC;
+	margin: auto;
+	display: block;
+
+}
+
+#input-field{
+  float: left;
+}
+
+#simulation{
+  float: left;
+}
+
+.slider{
+  width: 350px;
+}
+
+
+h1{
+  text-align: center;
+}
+
+input{
+  width: 50px;
+}
