@@ -16,12 +16,17 @@ var particle = {
   prevY: 0,
   x: 0,
   y: 0,
+  velX: 0,
+  velY: 0,
+  accE: 0, // acceleration due to the efield.
+  accB: 0,
+  accX: 0,
+  accY: 0,
   k: 0,
   m: 1,
   q: 1,
   r: 0,
   v: 40,
-  aE: 0, // acceleration due to the efield.
 
 
 };
@@ -139,7 +144,7 @@ $(document).ready(function() {
 
      $( "#start" ).button().on("click", function(){
       start = new Date().getTime();
-      interval = setInterval(updateParticle,2);
+      interval = setInterval(updateParticle, 1);
 
     });
 
@@ -148,7 +153,10 @@ $(document).ready(function() {
 
 calculate();
 drawBField();
+drawElecCharges();
 //draw();
+
+
 $(canvas).drawArc({
   layer: true,
   name: 'particle',
@@ -160,6 +168,7 @@ $(canvas).drawArc({
 $(canvas).drawRect({
   layer: true,
   name: 'plate1',
+  index: 0,
   fillStyle: '#000',
   x: 500, y: 250,
   width: 600,
@@ -169,11 +178,14 @@ $(canvas).drawRect({
 $(canvas).drawRect({
   layer: true,
   name: 'plate2',
+  index: 0,
   fillStyle: '#000',
   x: 500, y: -250,
   width: 600,
   height: 40
 });
+
+
 
 
 /*
@@ -192,7 +204,24 @@ function updateParticle(){
   var now = new Date().getTime();
   var t = (now - start)/500;
   calculate();
-  if(particle.x> 200){
+  if(particle.x > 200){
+    wasIn = true;
+    particle.x += particle.velX;
+    particle.y += particle.velY
+    var angle = Math.atan2(particle.velY, particle.velX);
+    particle.velX +=  particle.accB*Math.cos(angle + Math.PI/2);
+    particle.velY +=  particle.accB*Math.sin(angle + Math.PI/2) + particle.accE;
+  }else{
+    if(wasIn){
+      particle.x += particle.velX;//particle.x - particle.prevX;
+      particle.y += particle.velY; //particle.y - particle.prevY;
+    }else{
+      particle.velX = particle.v;
+      particle.x += particle.v;
+    }
+
+  }
+  /*if(particle.x> 200){
     wasIn = true;
     var adjTime = t - enterBField;
     particle.x = particle.r*Math.cos( particle.k*adjTime + (3/2) * Math.PI) + 200;
@@ -215,7 +244,7 @@ function updateParticle(){
   }
   //prevt = t;
   //console.log(t)
-
+  */
   $(canvas).setLayer('particle', {
     x: particle.x,
     y: particle.y
@@ -225,14 +254,14 @@ function updateParticle(){
 }
 
 function calculate(){
-  if(particle.q!=0 && bField != 0){
-    particle.r = (particle.m * particle.v)/(particle.q * bField);
-    particle.k = particle.v/particle.r;
-  }else{
-    particle.r = 0;
-    particle.k = 0;
-  }
-  particle.aE = (particle.q *eField)/particle.m;
+  var forceB = particle.q*particle.v*bField;
+  particle.accB = forceB/particle.m;
+
+  var forceE = particle.q*eField;
+  particle.accE = forceE/particle.m;
+
+
+
 
 }
 
@@ -280,4 +309,35 @@ function drawBField(){
       
     }
   }
+}
+
+function drawElecCharges(){
+  for(var a = 220; a< 800; a+= 40){
+    $(canvas).drawText({
+      layer: true,
+      groups: ['posPlate'],
+      index: 1,
+      fillStyle: '#000',
+      strokeStyle: '#FFF',
+      strokeWidth: 2,
+      x: a, y: 250,
+      fontSize: 24,
+      fontFamily: 'Verdana, sans-serif',
+      text: '+'
+    });
+
+    $(canvas).drawText({
+      layer: true,
+      groups: ['negPlate'],
+      index: 1,
+      fillStyle: '#9cf',
+      strokeStyle: '#FFF',
+      strokeWidth: 2,
+      x: a, y: -250,
+      fontSize: 24,
+      fontFamily: 'Verdana, sans-serif',
+      text: '-'
+    });
+  }
+
 }

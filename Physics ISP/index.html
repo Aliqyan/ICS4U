@@ -17,16 +17,22 @@
       <div id = "input-field">
         <div id = "particle" class="data-forms">
           <p>
-            <label for="mass">Mass of the particle</label>
+            <label for="mass">Mass:</label>
             <input type="text" id="mass"  style="border:0; color:#f6931f; font-weight:bold;">
           </p>
           <div id="mass-slider" class="slider"></div>
 
           <p>
-            <label for="charge">Charge of the particle</label>
+            <label for="charge">Charge:</label>
             <input type="text" id="charge"  style="border:0; color:#f6931f; font-weight:bold;">
           </p>
           <div id="charge-slider" class="slider"></div>
+
+          <p>
+            <label for="velocity">Velocity:</label>
+            <input type="text" id="velocity"  style="border:0; color:#f6931f; font-weight:bold;">
+          </p>
+          <div id="velocity-slider" class="slider"></div>
         </div>
 
         <div id = "e-field" class="data-forms">
@@ -44,10 +50,16 @@
           </p>
           <div id="b-field-mag-slider" class="slider"></div>
         </div>
+        <br>
+        <div>
+          <button id="reset">Reset</button>
+          <button id="start">Start</button>
+        </div>
+
       </div>
-      <div is = "simulation">
+      <div id = "simulation">
         <canvas width="1008" height="568" id = "myCanvas"></canvas>
       </div>
-			<script type="text/javascript" src="js/scriptTest.js"></script>
+			<script type="text/javascript" src="js/scriptTest2.js"></script>
 		</body>
 </html>
