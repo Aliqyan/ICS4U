@@ -300,8 +300,8 @@ function updateParticle(){
     }
   }
   //update the info section
-  $( "#e-field-display" ).val(Math.round(forceE*100)/100 + " N/C");
-  $( "#b-field-display" ).val(Math.round(forceB*100)/100 + " T");
+  $( "#e-field-display" ).val(Math.round(forceE*100)/100 + " N");
+  $( "#b-field-display" ).val(Math.round(forceB*100)/100 + " N");
   $( "#acc-x-display" ).val(Math.round(accX*100)/100 + " m/s^2");
   $( "#acc-y-display" ).val(Math.round(accY*100)/100 + " m/s^2");
   $( "#vel-x-display" ).val(Math.round(particle.velX*100)/100 + " m/s");
