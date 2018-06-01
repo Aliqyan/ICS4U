@@ -11,6 +11,11 @@ var interval;
 var start;
 var bField = 2;
 var eField = 0;
+var isEFieldPos = true; 
+var isBFieldPos = true; 
+var forceB;
+var forceE;
+var displayArrow = false;
 var particle = {
   prevX: 0,
   prevY: 0,
@@ -19,9 +24,9 @@ var particle = {
   velX: 0,
   velY: 0,
   accE: 0, // acceleration due to the efield.
-  accB: 0,
-  accX: 0,
-  accY: 0,
+  accB: 0, // acceleration due to the efield.
+  accX: 0, // acceleration due to the bfield in x component.
+  accY: 0, // acceleration due to the bfield in y component.
   k: 0,
   m: 1,
   q: 1,
@@ -36,7 +41,7 @@ $(document).ready(function() {
     $( "#mass-slider" ).slider({
       range: "max",
       min: 0,
-      max: 10,
+      max: 20,
       value: 10,
       slide: function( event, ui ) {
         $( "#mass" ).val( ui.value );
@@ -45,10 +50,6 @@ $(document).ready(function() {
     });
     $( "#mass" ).val( $("#mass-slider" ).slider( "value" ) );
     particle.m = ($( "#mass-slider" ).slider( "value" ));
-    $("#mass").keyup(function () {
-      $("#mass-slider").slider("value", this.value);
-      particle.m = parseInt(this.value);
-    });
 
   //charge
     $( "#charge-slider" ).slider({
@@ -58,23 +59,18 @@ $(document).ready(function() {
       value: 2,
       slide: function( event, ui ) {
         $( "#charge" ).val( ui.value );
-        particle.q = ui.value;
+        particle.q = ui.value/10;
       }
     });
     $( "#charge" ).val( $( "#charge-slider" ).slider( "value" ) );
-    particle.q = ($( "#charge-slider" ).slider( "value" ));
-    $("#charge").keyup(function () {
-      $("#charge-slider").slider("value", this.value);
-      particle.q = parseInt(this.value);
-
-    });
+    particle.q = ($( "#charge-slider" ).slider( "value" ))/10;
 
   //velocity
     $( "#velocity-slider" ).slider({
       range: "max",
       min: 0,
-      max: 100,
-      value: 10,
+      max: 20,
+      value: 14,
       slide: function( event, ui ) {
         $( "#velocity" ).val( ui.value );
         particle.v = ui.value;
@@ -82,71 +78,86 @@ $(document).ready(function() {
     });
     $( "#velocity" ).val( $( "#velocity-slider" ).slider( "value" ) );
     particle.v = ($( "#velocity-slider" ).slider( "value" ));
-    $("#velocity").keyup(function () {
-      $("#velocity-slider").slider("value", this.value);
-      particle.v = parseInt(this.value);
-
-    });
 
   //e-field
     $( "#e-field-mag-slider" ).slider({
       range: "max",
-      min: -20,
+      min: 0,
       max: 20,
-      value: 2,
+      value: 5,
       slide: function( event, ui ) {
         $( "#e-field-mag" ).val( ui.value );
         eField = ui.value;
+        updateEField();
       }
     });
     $( "#e-field-mag" ).val( $( "#e-field-mag-slider" ).slider( "value" ) );
     eField = $( "#e-field-mag-slider" ).slider( "value" );
-    $("#e-field-mag").keyup(function () {
-      $("#e-field-mag-slider").slider("value", this.value);
-      eField = parseInt(this.value);
-    });
   
   //b-field
     $( "#b-field-mag-slider" ).slider({
       range: "max",
-      min: -5,
+      min: 0,
       max: 5,
-      value: 2,
+      value: 1,
       slide: function( event, ui ) {
         $( "#b-field-mag" ).val( ui.value );
         bField = ui.value;
-        updateBField(ui.value);
+        updateBField();
       }
     });
     $( "#b-field-mag" ).val( $( "#b-field-mag-slider" ).slider( "value" ) );
     bField = $( "#b-field-mag-slider" ).slider( "value" );
     updateBField($( "#b-field-mag-slider" ).slider( "value" ));
-    $("#b-field-mag").keyup(function () {
-      $("#b-field-mag-slider").slider("value", this.value);
-        bField = parseInt(this.value);
-        updateBField(this.value);
-    });
 
   //button
     $( "#reset" ).button().on("click", function(){
-      console.log(particle);
-      console.log("E-Field: " + eField);
-      console.log("B-Field: " +bField);
-      clearInterval(interval);
-      particle.x = 0;
-      particle.y = 0;
-      wasIn = false;
-      $(canvas).setLayer('particle', {
-        x: 0,
-        y: 0,
-      }).drawLayers();
+      restart();
     });
 
      $( "#start" ).button().on("click", function(){
       start = new Date().getTime();
       interval = setInterval(updateParticle, 1);
+      $("#start").button('option', 'disabled', true);
+
 
     });
+
+    $("#in-out-select").switchButton({
+      on_label: "In",          // Text to be displayed when checked
+      off_label: "Out",
+      width: 40,                 // Width of the button in pixels
+      height: 15,                // Height of the button in pixels
+      button_width: 20, 
+      checked: true,
+    });
+
+    $( "#in-out-select" ).change(function() {
+      isBFieldPos = $( this).prop('checked');
+      updateBField();
+    }).change();
+
+
+
+    $("#up-down-select").switchButton({
+      on_label: "Up",          // Text to be displayed when checked
+      off_label: "Down",
+      width: 40,                 // Width of the button in pixels
+      height: 15,                // Height of the button in pixels
+      button_width: 20, 
+      checked: false,
+    });
+
+    $( "#up-down-select" ).change(function() {
+      //var $input = $( this);
+      isEFieldPos = $( this).prop('checked');
+      updateEField();
+    }).change();
+
+    $( "#arrows-display" ).change(function() {
+      displayArrows = $( this).prop('checked');
+    }).change();
+
 
 });
 
@@ -185,6 +196,33 @@ $(canvas).drawRect({
   height: 40
 });
 
+$(canvas).drawLine({
+  strokeStyle: '#000',
+  layer: true,
+  name: 'e-force-arrow',
+  index: 2,
+  strokeWidth: 4,
+  rounded: true,
+  visible: false,
+  startArrow: true,
+  arrowRadius: 15,
+  x1: 100, y1: 100,
+  x2: 150, y2: 125,
+});
+
+$(canvas).drawLine({
+  strokeStyle: '#000',
+  layer: true,
+  name: 'b-force-arrow',
+  index: 2,
+  strokeWidth: 4,
+  rounded: true,
+  visible: false,
+  startArrow: true,
+  arrowRadius: 15,
+  x1: 100, y1: 100,
+  x2: 150, y2: 125,
+});
 
 
 
@@ -201,17 +239,53 @@ var wasIn = false;
 var lastX;
 var lastY;
 function updateParticle(){
+  console.log('a')
   var now = new Date().getTime();
-  var t = (now - start)/500;
+  var t = (now - start)/2000;
+  var accX;
+  var accY;
   calculate();
-  if(particle.x > 200){
+  if((particle.x >200 && particle.x < 800 && Math.abs(particle.y) > 230) || particle.x < 0 || particle.x > 1008 || Math.abs(particle.y) > 284){
+    restart();
+  }
+  if(particle.x > 200 && particle.x < 800){
+    $(canvas).setLayer('e-force-arrow', {visible: true}).drawLayers();
+    $(canvas).setLayer('b-force-arrow', {visible: true}).drawLayers();
+
     wasIn = true;
     particle.x += particle.velX;
     particle.y += particle.velY
     var angle = Math.atan2(particle.velY, particle.velX);
-    particle.velX +=  particle.accB*Math.cos(angle + Math.PI/2);
-    particle.velY +=  particle.accB*Math.sin(angle + Math.PI/2) + particle.accE;
+    accX = particle.accB*Math.cos(angle + Math.PI/2);
+    particle.velX +=  accX;
+    accY = particle.accB*Math.sin(angle + Math.PI/2) + particle.accE;
+    particle.velY +=  accY;
+    if(displayArrows){
+      $(canvas).setLayer('e-force-arrow', {
+        x2: particle.x,
+        y2: particle.y,
+        x1: particle.x,
+        y1: particle.y + 15*forceE,
+      }).drawLayers();
+
+      $(canvas).setLayer('b-force-arrow', {
+        x2: particle.x,
+        y2: particle.y,
+        x1: particle.x + 15*(forceB)*Math.cos(angle + Math.PI/2),
+        y1: particle.y + 15*(forceB)*Math.sin(angle + Math.PI/2),
+      }).drawLayers();
+    }else{
+      $(canvas).setLayer('e-force-arrow', {visible: false}).drawLayers();
+      $(canvas).setLayer('b-force-arrow', {visible: false}).drawLayers();
+    }
+
+
   }else{
+    accX = 0;
+    accY = 0;
+    $(canvas).setLayer('e-force-arrow', {visible: false}).drawLayers();
+    $(canvas).setLayer('b-force-arrow', {visible: false}).drawLayers();
+
     if(wasIn){
       particle.x += particle.velX;//particle.x - particle.prevX;
       particle.y += particle.velY; //particle.y - particle.prevY;
@@ -221,30 +295,15 @@ function updateParticle(){
     }
 
   }
-  /*if(particle.x> 200){
-    wasIn = true;
-    var adjTime = t - enterBField;
-    particle.x = particle.r*Math.cos( particle.k*adjTime + (3/2) * Math.PI) + 200;
-    particle.y = particle.r*Math.sin( particle.k*adjTime + (3/2) * Math.PI) + (particle.aE *Math.pow(t,2))/(2*particle.m) + particle.r; 
+  $( "#e-field-display" ).val(forceE);
+  $( "#b-field-display" ).val(forceB);
+  $( "#acc-x-display" ).val(accX);
+  $( "#acc-y-display" ).val(accY);
+  $( "#vel-x-display" ).val(particle.velX);
+  $( "#vel-y-display" ).val(particle.velY);
+  console.log('yo')
 
-    lastX =  particle.x- particle.prevX;
-    lastY = particle.y - particle.prevY ;
-    particle.prevX = particle.x;
-    particle.prevY = particle.y;
-  }else{
-    if(wasIn){
-      particle.x += lastX;//particle.x - particle.prevX;
-      particle.y += lastY; //particle.y - particle.prevY;
-      console.log(particle.x)
-    }else{
-     particle.x = particle.v * (t);
-     enterBField = t;
-    }
 
-  }
-  //prevt = t;
-  //console.log(t)
-  */
   $(canvas).setLayer('particle', {
     x: particle.x,
     y: particle.y
@@ -253,37 +312,66 @@ function updateParticle(){
 
 }
 
+
+
+
 function calculate(){
-  var forceB = particle.q*particle.v*bField;
+  bField = Math.abs(bField);
+  eField = Math.abs(eField);
+
+  if(!isBFieldPos){
+    bField = -bField;
+  }
+  if(!isEFieldPos){
+    eField = -eField;
+  }
+  forceB = particle.q*particle.v*bField;
   particle.accB = forceB/particle.m;
 
-  var forceE = particle.q*eField;
+  forceE = particle.q*eField;
   particle.accE = forceE/particle.m;
 
 
 
 
+
+
 }
 
-var prev = "";
-function updateBField(val){
-  if(prev != "zero" && val === 0){
-    prev = "zero";
+function restart(){
+  clearInterval(interval);
+  particle.x = 0;
+  particle.y = 0;
+  particle.velY = 0;
+  particle.velX = 0;
+  $("#start").button('option', 'disabled', false);
+
+  wasIn = false;
+  $(canvas).setLayer('particle', {
+    x: 0,
+    y: 0,
+  }).drawLayers();
+  $(canvas).setLayer('e-force-arrow', {visible: false}).drawLayers();
+  $(canvas).setLayer('b-force-arrow', {visible: false}).drawLayers();
+}
+
+function updateBField(){
+   if(bField === 0){
+    $(canvas).setLayerGroup('bFieldIn', {visible: false}).drawLayers();
     $(canvas).setLayerGroup('bFieldOut', {visible: false}).drawLayers();
+   }else if(isBFieldPos){
     $(canvas).setLayerGroup('bFieldIn', {visible: false}).drawLayers();
-  }else if(prev != "out" && val> 0){
-    prev = "out";
     $(canvas).setLayerGroup('bFieldOut', {visible: true}).drawLayers();
-    $(canvas).setLayerGroup('bFieldIn', {visible: false}).drawLayers();
-  }else if(prev !== "in" && val<0){
-    prev = "in";
+  }else{
     $(canvas).setLayerGroup('bFieldIn', {visible: true}).drawLayers();
     $(canvas).setLayerGroup('bFieldOut', {visible: false}).drawLayers();
   }
 }
+
+
 function drawBField(){
-  for(var a = 200; a< canvas.width; a+= 50){
-    for(var b = -canvas.height/2; b< canvas.height/2; b+= 50){
+  for(var a = 200; a< 850; a+= 50){
+    for(var b = -canvas.height/2+50; b< canvas.height/2-50; b+= 50){
         $(canvas).drawArc({
           layer: true,
           groups: ['bFieldOut'],
@@ -311,11 +399,33 @@ function drawBField(){
   }
 }
 
+function updateEField(){
+   if(eField === 0){
+    $(canvas).setLayerGroup('posPlateUp', {visible: false}).drawLayers();
+    $(canvas).setLayerGroup('negPlateDown', {visible: false}).drawLayers();
+
+    $(canvas).setLayerGroup('negPlateUp', {visible: false}).drawLayers();
+    $(canvas).setLayerGroup('posPlateDown', {visible: false}).drawLayers();
+   }else if(isEFieldPos){
+    $(canvas).setLayerGroup('posPlateUp', {visible: false}).drawLayers();
+    $(canvas).setLayerGroup('negPlateDown', {visible: false}).drawLayers();
+
+    $(canvas).setLayerGroup('negPlateUp', {visible: true}).drawLayers();
+    $(canvas).setLayerGroup('posPlateDown', {visible: true}).drawLayers();
+  }else{
+    $(canvas).setLayerGroup('posPlateUp', {visible: true}).drawLayers();
+    $(canvas).setLayerGroup('negPlateDown', {visible: true}).drawLayers();
+
+    $(canvas).setLayerGroup('negPlateUp', {visible: false}).drawLayers();
+    $(canvas).setLayerGroup('posPlateDown', {visible: false}).drawLayers();
+  }
+}
+
 function drawElecCharges(){
   for(var a = 220; a< 800; a+= 40){
     $(canvas).drawText({
       layer: true,
-      groups: ['posPlate'],
+      groups: ['posPlateUp'],
       index: 1,
       fillStyle: '#000',
       strokeStyle: '#FFF',
@@ -328,7 +438,7 @@ function drawElecCharges(){
 
     $(canvas).drawText({
       layer: true,
-      groups: ['negPlate'],
+      groups: ['negPlateDown'],
       index: 1,
       fillStyle: '#9cf',
       strokeStyle: '#FFF',
@@ -337,6 +447,32 @@ function drawElecCharges(){
       fontSize: 24,
       fontFamily: 'Verdana, sans-serif',
       text: '-'
+    });
+
+    $(canvas).drawText({
+      layer: true,
+      groups: ['negPlateUp'],
+      index: 1,
+      fillStyle: '#000',
+      strokeStyle: '#FFF',
+      strokeWidth: 2,
+      x: a, y: 250,
+      fontSize: 24,
+      fontFamily: 'Verdana, sans-serif',
+      text: '-'
+    });
+
+    $(canvas).drawText({
+      layer: true,
+      groups: ['posPlateDown'],
+      index: 1,
+      fillStyle: '#9cf',
+      strokeStyle: '#FFF',
+      strokeWidth: 2,
+      x: a, y: -250,
+      fontSize: 24,
+      fontFamily: 'Verdana, sans-serif',
+      text: '+'
     });
   }
 

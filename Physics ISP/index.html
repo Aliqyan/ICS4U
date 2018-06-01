@@ -1,64 +1,132 @@
 <!Doctype html>
 	<html>
 		<head>
-			   <meta charset="UTF-8">
+			<meta charset="UTF-8">
 			<title>Physics ISP</title>
-			 <script src="js/jquery.js" type="text/javascript">
-          </script>
-          <script src="js/jquery-ui.js" type="text/javascript">
-          </script>
-                <link href="style/jquery-ui.css" rel="stylesheet" type="text/css">
-                			<link rel="stylesheet" type="text/css" href="style/style.css">
+      <link href="style/jquery-ui.css" rel="stylesheet" type="text/css">
+
+      <link rel="stylesheet" href="style/jquery.switchButton.css">
+      <link rel="stylesheet" type="text/css" href="style/style.css">
+			<script src="js/jquery.js" type="text/javascript"></script>
+      <script src="js/jquery-ui.js" type="text/javascript"></script>
 			<script src="js/jcanvas.min.js"></script>
+      <script src="js/jquery.switchButton.js"></script>
+
+
 
 		</head>
 		<body>
-			<h1> Electric and Magnetic Field Simulation </h1>
       <div id = "input-field">
         <div id = "particle" class="data-forms">
+          <h2>Particle</h2>
           <p>
             <label for="mass">Mass:</label>
-            <input type="text" id="mass"  style="border:0; color:#f6931f; font-weight:bold;">
+            <input type="text" id="mass" readonly>
           </p>
           <div id="mass-slider" class="slider"></div>
 
           <p>
             <label for="charge">Charge:</label>
-            <input type="text" id="charge"  style="border:0; color:#f6931f; font-weight:bold;">
+            <input type="text" id="charge" readonly>
           </p>
           <div id="charge-slider" class="slider"></div>
 
           <p>
             <label for="velocity">Velocity:</label>
-            <input type="text" id="velocity"  style="border:0; color:#f6931f; font-weight:bold;">
+            <input type="text" id="velocity" readonly>
           </p>
           <div id="velocity-slider" class="slider"></div>
         </div>
 
         <div id = "e-field" class="data-forms">
+          <h2>Electric Field</h2>
           <p>
-            <label for="e-field-mag">Magnitude of the Electric Field</label>
-            <input type="text" id="e-field-mag"  style="border:0; color:#f6931f; font-weight:bold;">
+            <label for="e-field-mag">Magnitude:</label>
+            <input type="text" id="e-field-mag" readonly>
           </p>
           <div id="e-field-mag-slider" class="slider"></div>
+          <form>
+            <p>Direction</p>
+            <input type="checkbox" name="up-down-select" id="up-down-select">
+          </form> 
+
         </div>
 
         <div id = "b-field" class="data-forms">
+          <h2>Magnetic Field</h2>
           <p>
-            <label for="b-field-mag">Magnitude of the Magnetic Field</label>
-            <input type="text" id="b-field-mag"  style="border:0; color:#f6931f; font-weight:bold;">
+            <label for="b-field-mag">Magnitude:</label>
+            <input type="text" id="b-field-mag" readonly>
           </p>
           <div id="b-field-mag-slider" class="slider"></div>
+          <form>
+            <p>Direction</p>
+            <input type="checkbox" name="in-out-select" id="in-out-select">
+          </form>        
         </div>
         <br>
         <div>
-          <button id="reset">Reset</button>
           <button id="start">Start</button>
         </div>
 
       </div>
       <div id = "simulation">
+        <h1> Electric and Magnetic Field Simulation </h1>
+
         <canvas width="1008" height="568" id = "myCanvas"></canvas>
+        <div id = "info">
+          <div id = "forces" class = "info-fields">
+            <h2>Forces:</h2>
+            <p>
+              <label for="e-field-display">Electric Force:</label>
+              <input type="text" id="e-field-display" readonly>
+            </p>
+
+            <p>
+              <label for="b-field-display">Magnetic Force:</label>
+              <input type="text" id="b-field-display" readonly>
+            </p>
+
+          </div>
+
+          <div id = "acceleration" class = "info-fields">
+            <h2>Acceleration:</h2>
+            <p>
+              <label for="acc-x-display">In the X component:</label>
+              <input type="text" id="acc-x-display" readonly>
+            </p>
+
+            <p>
+              <label for="acc-y-display">In the Y component:</label>
+              <input type="text" id="acc-y-display" readonly>
+            </p>
+
+          </div>
+
+          <div id = "velocity" class = "info-fields">
+            <h2>Velocity:</h2>
+            <p>
+              <label for="vel-x-display">In the X component:</label>
+              <input type="text" id="vel-x-display" readonly>
+            </p>
+
+            <p>
+              <label for="vel-y-display">In the Y component:</label>
+              <input type="text" id="vel-y-display" readonly>
+            </p>
+
+          </div>
+
+          <div id = "miscellaneous" class = "info-fields">
+            <h2>Design Elemnets:</h2>
+            <p>
+              <label for="arrows-display">Show Force Arrows:</label>
+              <input type="checkbox" id="arrows-display" readonly>
+            </p>
+
+          </div>
+
+        </div>
       </div>
 			<script type="text/javascript" src="js/scriptTest2.js"></script>
 		</body>

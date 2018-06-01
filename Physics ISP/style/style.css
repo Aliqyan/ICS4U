@@ -1,5 +1,5 @@
 body {
-    background-color: #1a344ad1;
+    background-color: #1a344a;
     color: #6db13c;
 }
 h1{
@@ -33,20 +33,60 @@ p img{
 
 }
 
+body{
+  display: flex;
+}
+
 #input-field{
-  float: left;
+  width: 160px;
+  margin-top: 70px;
+  margin-left: 40px
+}
+
+#simulation{
+  flex:1;
 }
 
 .slider{
-  width: 350px;
+  width: 150px;
 }
 
+#info{
+  display: flex;
+  margin-left: 60px;
+}
+
+.info-fields{
+  margin-left: 75px;
+}
 
 h1{
   text-align: center;
 }
 
 input{
-  width: 50px;
-  text-align: right;
+  width: 20px;
+  text-align: left;
+  border:0;
+  color:#f6931f;
+  font-weight:bold;
+  background-color: #1a344a;
+}
+
+#info input{
+  width: 45px;
+} 
+
+#miscellaneous input{
+  margin-left: -10px;
+}
+
+
+
+.inline{
+  float:left;
+}
+
+#in,  #out {
+  font-size: 10px;
 }
