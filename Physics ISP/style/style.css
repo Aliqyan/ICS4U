@@ -2,9 +2,6 @@ body {
     background-color: #1a344a;
     color: #6db13c;
 }
-h1{
-
-}
 
 p {
 	font-family: cursive;
@@ -40,7 +37,13 @@ body{
 #input-field{
   width: 160px;
   margin-top: 70px;
-  margin-left: 40px
+  margin-left: 40px;
+  padding-left: 20px;
+}
+
+h2{
+  margin-left: -20px;
+  margin-bottom: 0px;
 }
 
 #simulation{
@@ -53,11 +56,15 @@ body{
 
 #info{
   display: flex;
-  margin-left: 60px;
+  margin-left: 90px;
 }
 
 .info-fields{
   margin-left: 75px;
+}
+
+#forces{
+  margin-left: 40px;
 }
 
 h1{
@@ -65,7 +72,7 @@ h1{
 }
 
 input{
-  width: 20px;
+  width: 65px;
   text-align: left;
   border:0;
   color:#f6931f;
@@ -74,14 +81,12 @@ input{
 }
 
 #info input{
-  width: 45px;
+  width: 75px;
 } 
 
 #miscellaneous input{
   margin-left: -10px;
 }
-
-
 
 .inline{
   float:left;
