@@ -171,7 +171,7 @@ drawElecCharges();
 $(canvas).drawArc({
   layer: true,
   name: 'particle',
-  fillStyle: '#0095DD',
+  fillStyle: '#1a344a',
   x: 0, y: 0,
   radius: 10
 });
@@ -201,8 +201,8 @@ $(canvas).drawLine({
   layer: true,
   name: 'e-force-arrow',
   index: 2,
-  fillStyle: '#0E1E94',
-  strokeStyle: '#0E1E94',
+  fillStyle: '#3CB73C',
+  strokeStyle: '#3CB73C',
   strokeWidth: 4,
   rounded: true,
   visible: false,
@@ -217,8 +217,8 @@ $(canvas).drawLine({
   layer: true,
   name: 'b-force-arrow',
   index: 2,
-  fillStyle: '#6E060B',
-  strokeStyle: '#6E060B',
+  fillStyle: '#F40505',
+  strokeStyle: '#F40505',
   strokeWidth: 4,
   rounded: true,
   visible: false,
