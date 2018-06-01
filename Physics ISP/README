@@ -4,5 +4,5 @@ To start simply press start. To reset the simulation and continue adjusting the 
 Below the simlation are some of the internal calculations, inorder for the simulation to work.
 The last option under the Design Features is a checkbox for a free body diagram showing the direction of the forces at a given time, in addition to their relitave magnitudes.(to each other) 
   The Red arrow represents the magnetic force.
-  The Blue arrow represents the electric force.
+  The Green arrow represents the electric force.
 I hope you enjoy and find this simulator useful.
