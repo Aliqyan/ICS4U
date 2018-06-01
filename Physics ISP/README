@@ -2,5 +2,7 @@ Welcome to my Electromagnetism Simulator.
 This simulator allows one to change the mass, charge, and velocity of a particle as well as the magnitude and firection of the E-Field and B-Field, within a reasonable range of values.
 To start simply press start. To reset the simulation and continue adjusting the values press restart, or wait for the previous simulation to end.
 Below the simlation are some of the internal calculations, inorder for the simulation to work.
-The last option under the Design Features is a checkbox for a free body diagram showing the direction of the forces at a given time, in addition to their relitave magnitudes (to each other).
+The last option under the Design Features is a checkbox for a free body diagram showing the direction of the forces at a given time, in addition to their relitave magnitudes.(to each other) 
+  The Red arrow represents the magnetic force.
+  The Blue arrow represents the electric force.
 I hope you enjoy and find this simulator useful.
